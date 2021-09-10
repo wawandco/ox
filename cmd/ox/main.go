@@ -8,7 +8,7 @@ import (
 	"github.com/wawandco/ox/internal/log"
 )
 
-// This is the main oxpecker CLI that provides the basic functionality
+// This is the main ox CLI that provides the basic functionality
 // by using the base plugins.
 func main() {
 	err := cli.Wrap(context.Background(), os.Args)

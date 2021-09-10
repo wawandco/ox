@@ -11,7 +11,7 @@ import (
 // printTopLevel prints the top level help text with a table that contains top level
 // commands (names) and descriptions.
 func (h *Command) printTopLevel() {
-	fmt.Printf("Oxpecker allows to build apps with ease\n\n")
+	fmt.Printf("ox allows to build apps with ease\n\n")
 	fmt.Println("Usage:")
 	fmt.Printf("  ox [command]\n\n")
 

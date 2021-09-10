@@ -34,12 +34,12 @@ func (b Command) ParentName() string {
 }
 
 func (b Command) HelpText() string {
-	return "returns the current version of Oxpecker CLI"
+	return "returns the current version of ox CLI"
 }
 
-// Run prints the version of the Oxpecker cli
+// Run prints the version of the ox cli
 func (b *Command) Run(ctx context.Context, root string, args []string) error {
-	fmt.Printf("Oxpecker version %v\n", version)
+	fmt.Printf("ox version %v\n", version)
 
 	return nil
 }

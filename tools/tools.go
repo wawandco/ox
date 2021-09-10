@@ -40,7 +40,7 @@ import (
 	"github.com/wawandco/ox/tools/yarn"
 )
 
-// Base plugins for applications lifecycle. While oxpecker
+// Base plugins for applications lifecycle. While ox
 // has other plugins this list is the base that is used across most of
 // the apps we build and maintain.
 var Base = []plugins.Plugin{

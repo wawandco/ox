@@ -99,7 +99,7 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 		return nil
 	}
 
-	// Commands that require running within the oxpecker directory
+	// Commands that require running within the ox directory
 	// may require its root to be determined with the go.mod. However
 	// some other commands may want to determine the root by themself,
 	// doing os.Getwd or something similar. The latter ones are RootFinders.
