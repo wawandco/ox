@@ -6,7 +6,7 @@ type: command
 short: "The help command provides valuable information for each of the commands in the CLI"
 ---
 
-The help command serves as a live documentation for each of the commands in the ox CLI. You can see the top level help by running:
+The help command serves as a live documentation for each of the commands in the Ox CLI. You can see the top level help by running:
 
 ```
 ox help

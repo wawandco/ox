@@ -6,7 +6,7 @@ type: command
 short: "the build command is intended to build the final Go binary for the Ox app, it invokes things like node build process before packing the binary embedding the asset files."
 ---
 
-Building your app with `ox` is based on the `build` command. You can get more info by running `ox help build`.
+Building your app with `Ox` is based on the `build` command. You can get more info by running `Ox help build`.
 ### Multiple binaries
 One important thing to mention here is that Ox recommended approach is that an application will have multiple binaries built, one of each purpose. That way when a binary is invoked in production it will know the single task it will run.
 

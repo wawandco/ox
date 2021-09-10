@@ -3,7 +3,7 @@
 ### Installation
 Ox is an (unofficial) CLI for the Go Buffalo web development ecosystem. The Ox binary which provides commands for common Buffalo development operations.
 
-To install ox, run:
+To install Ox, run:
 
 ```sh
 go install github.com/wawandco/ox/cmd/ox@latest

@@ -12,7 +12,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'Wawandco', // Usually your GitHub org/user name.
-  projectName: 'ox', // Usually your repo name.
+  projectName: 'Ox', // Usually your repo name.
 
   presets: [
     [

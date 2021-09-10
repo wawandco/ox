@@ -8,7 +8,7 @@ You might have read a couple of times the `plugin system` that Ox uses, in short
 ### Customizing through plugins
 Oftentimes you may need to have your own CLI commands for common operations for your team. While the base plugins provide a foundation for Buffalo development these may fall short for specific team choices.
 
-In these cases, ox provides a plugin system that may come handy, to use it you will need to generate `cmd/cli/main.go` by running (within your app folder):
+In these cases, Ox provides a plugin system that may come handy, to use it you will need to generate `cmd/cli/main.go` by running (within your app folder):
 
 ```
 ox generate cli

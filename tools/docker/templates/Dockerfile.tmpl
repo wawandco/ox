@@ -7,7 +7,7 @@ RUN apk add --update nodejs-current curl bash build-base
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 ENV PATH="$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules"
 
-# Installing ox
+# Installing Ox
 RUN go install github.com/wawandco/ox/cmd/ox@latest
 WORKDIR /app
 ADD . .

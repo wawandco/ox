@@ -10,7 +10,7 @@ In order to get started with the Ox CLI you should install. You can grab the bin
 go install github.com/wawandco/ox/cmd/ox@latest
 ```
 
-Once this completes you should have the ox binary in your terminal. You can test it and see if it works by running:
+Once this completes you should have the Ox binary in your terminal. You can test it and see if it works by running:
 
 ```sh
 ox help

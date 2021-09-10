@@ -1,6 +1,6 @@
 ---
 sidebar_position: 0
-name: about-ox
+name: about-Ox
 title: About Ox
 ---
 
