@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/pflag"
-	"github.com/wawandco/oxpecker/plugins"
+	"github.com/wawandco/ox/plugins"
 )
 
 var _ plugins.Command = (*Command)(nil)

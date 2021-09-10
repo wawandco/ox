@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/wawandco/oxpecker/plugins"
+	"github.com/wawandco/ox/plugins"
 )
 
 // printTopLevel prints the top level help text with a table that contains top level

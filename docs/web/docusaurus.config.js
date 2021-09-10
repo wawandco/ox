@@ -49,7 +49,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/wawandco/oxpecker',
+            href: 'https://github.com/wawandco/ox',
             label: 'GitHub',
             position: 'right',
           },

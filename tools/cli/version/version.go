@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wawandco/oxpecker/plugins"
+	"github.com/wawandco/ox/plugins"
 )
 
 var (
