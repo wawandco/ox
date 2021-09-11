@@ -4,13 +4,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
-  title: 'Ox Documentation',
-  tagline: 'Dinosaurs are cool',
+  title: 'Ox CLI',
+  tagline: "Ox is a CLI for Rapid application development in Go. It's focus is development productivity, maintainability and extensibility.",
   url: 'https://oxcli.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  // favicon: 'img/favicon.ico',
   organizationName: 'Wawandco', // Usually your GitHub org/user name.
   projectName: 'Ox', // Usually your repo name.
 
@@ -37,10 +37,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     ({
       navbar: {
         title: 'Ox',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-        },
+        // logo: {
+        //   alt: 'My Site Logo',
+        //   // src: 'img/logo.svg',
+        // },
         items: [
           {
             type: 'doc',
