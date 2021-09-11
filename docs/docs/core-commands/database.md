@@ -32,6 +32,3 @@ Reset drops and recreates the database on the specified connection, defaults to 
 $ ox db reset
 $ ox db reset conn development
 ```
-
-
-
