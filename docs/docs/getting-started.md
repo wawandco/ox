@@ -4,6 +4,8 @@ name: getting-started
 title: Getting Started
 ---
 
+### Installing the CLI
+
 In order to get started with the Ox CLI you should install. You can grab the binary from the github repository or you can install from source, which is the recommended way. To install from source you should run:
 
 ```sh
@@ -40,4 +42,33 @@ Command      Alias
   version       v       returns the current version of Ox CLI
 ```
 
-Which means you're all set.
+Which means you're all set to start building your first application.
+
+### Generating a new app
+
+With the Ox CLI you can generate a new app from scratch, this process will build a folder structure with all that you need to get started writing you web application with Go. To generate this new app you can run:
+
+```sh
+ox new coke # Where  `coke` is the name of the app.
+```
+
+Once this has completed you should have a new folder called `coke` in your current working directory. This folder will contain all the files and folders that you need to get started with your web application.
+
+### Setting up the database
+
+Once your app has been generated you need to do one more step to run it, which is setting up the DB. Ox comes up with the `database` command to help you with this. To run the database command you can run:
+
+```sh
+ox db create 
+```
+
+This command will create a database instance for the development environment, in our case called `coke_development` which our application will connect to while in development mode.
+
+### Running the app
+Once the db has been setup you can start your app by running:
+
+```sh
+ox dev
+```
+
+And then visit the app in your browser at [http://localhost:3000/](http://localhost:3000/).
