@@ -18,3 +18,19 @@ Also, you can get specific help for a particular command by running `ox help [co
 ox help new
 ox help database create # shoes the information for the `create` subcommand .
 ```
+
+The help command produces output similar to the following:
+```sh
+$ ox help database
+[info] Using github.com/wawandco/ox/cmd/ox 
+
+database operation commands
+
+Usage:
+  ox db [subcommand]
+
+Subcommands:
+  create        creates database in GO_ENV or --conn flag
+  drop          drops database in GO_ENV or --conn flag
+  reset         resets database specified in GO_ENV or --conn
+```
