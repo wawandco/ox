@@ -1,2 +1,4 @@
 [build]
-  publish = "docs/web/build"
+    base = "docs/web"
+    publish = "docs/web/build"
+    command = "npm run build"
