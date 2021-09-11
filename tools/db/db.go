@@ -25,6 +25,10 @@ type Command struct {
 }
 
 func (c Command) Name() string {
+	return "database"
+}
+
+func (c Command) Alias() string {
 	return "db"
 }
 
