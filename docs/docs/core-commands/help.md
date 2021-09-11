@@ -3,10 +3,10 @@ title: "Help"
 date: 2021-09-06T14:48:45-05:00
 draft: false
 type: command
-short: "The help command provides valuable information for each of the commands in the CLI"
+short: ""
 ---
 
-The help command serves as a live documentation for each of the commands in the Ox CLI. You can see the top level help by running:
+The help command provides valuable information for each of the commands in the CLI. The help command shows the information it has about a command or subcommand. You can see the top level help by running:
 
 ```
 ox help
@@ -16,4 +16,5 @@ Also, you can get specific help for a particular command by running `ox help [co
 
 ```
 ox help new
+ox help database create # shoes the information for the `create` subcommand .
 ```
