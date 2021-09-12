@@ -50,16 +50,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           },
           {
             href: 'https://github.com/wawandco/ox',
-            label: 'GitHub',
+            className: 'navbar-item-github',
             position: 'right',
+            label: "Github",
           },
         ],
       },
-      footer: {
-        style: 'dark',
-        links: [],
-        copyright: `Copyright © ${new Date().getFullYear()} Wawandco, Inc.`,
-      },
+
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
