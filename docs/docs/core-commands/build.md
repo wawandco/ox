@@ -23,7 +23,7 @@ ox build --tags netdns=go   # specifying build tags to the go build commands
 
 To know more about the command you can always use the [`help`](/docs/core-commands/help) command.
 
-### The build process
+<!-- ### The build process
 
 ### Multiple binaries
 One important thing to mention here is that Ox recommended approach is that an application will have multiple binaries built, one of each purpose. That way when a binary is invoked in production it will know the single task it will run.
@@ -41,4 +41,4 @@ yourapp
       main.go  // a worker binary for things like Temporal or Faktory.
 ```
 
-And the Dockerfile could just build those to be ready in the Dockerfile.
+And the Dockerfile could just build those to be ready in the Dockerfile. -->

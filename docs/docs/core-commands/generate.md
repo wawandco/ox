@@ -32,7 +32,7 @@ To use one of these generators you can use the following syntax:
 ox generate <generator> [<args>...]
 ```
 
-Some usage examples could be:
+Some usage examples are:
 ```sh
 ox generate model users id:uuid name:string 
 ox generate migration create_users_table
