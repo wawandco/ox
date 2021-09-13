@@ -24,6 +24,10 @@ func (c Command) Name() string {
 	return "test"
 }
 
+func (c Command) Alias() string {
+	return "t"
+}
+
 func (c Command) ParentName() string {
 	return ""
 }
