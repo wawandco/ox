@@ -4,32 +4,26 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Development streamlined',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Ox aims to facilitate development tasks. It is a tool that helps you improve your team release cycle by automating repetitive tasks.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Maintainability in mind',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Besides allowing to accelerate your development, Ox aims to make your code more maintainable. It is thought not only for MVP's but large codebases.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
+    title: 'Plugin System',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Extend or customize your development environment with plugins. Ox allows to plug the tools you need to get the job done.
       </>
     ),
   },
@@ -39,7 +33,7 @@ function Feature({Svg, title, description}) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
+        {/* <Svg className={styles.featureSvg} alt={title} /> */}
       </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
