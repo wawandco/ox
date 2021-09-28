@@ -36,11 +36,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Ox',
-        // logo: {
-        //   alt: 'My Site Logo',
-        //   // src: 'img/logo.svg',
-        // },
+        logo: {
+          alt: 'Ox logo',
+          src: 'img/ox_dark_small.png',
+          srcDark: 'img/ox_light_small.png',
+        },
         items: [
           {
             type: 'doc',

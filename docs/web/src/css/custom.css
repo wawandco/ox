@@ -27,6 +27,18 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.hidden {
+  display: none;
+}
+
+html[data-theme='dark'] .dark-theme-logo {
+    display: inline-block;
+}
+
+html[data-theme='light'] .light-theme-logo {
+    display: inline-block;
+}
+
 .hero__subtitle {
   max-width: 50rem !important;
   margin-right: auto;
