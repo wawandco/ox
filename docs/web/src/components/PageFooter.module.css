@@ -1,0 +1,9 @@
+.footer{
+  text-align: center;
+  padding: 2rem 0;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.footer p{
+  margin-bottom: 0;
+}

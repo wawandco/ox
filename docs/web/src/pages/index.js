@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
+import PageFooter from '../components/PageFooter';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -17,7 +18,7 @@ function HomepageHeader() {
         <p className="hero__subtitle tagline">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--primary button--lg"
             to="/docs/getting-started">
             Get started
           </Link>
@@ -37,6 +38,7 @@ export default function Home() {
       <main>
         <HomepageFeatures />
       </main>
+      <PageFooter />
     </Layout>
   );
 }
