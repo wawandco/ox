@@ -37,7 +37,7 @@ func (m *Command) Name() string {
 }
 
 func (m *Command) ParentName() string {
-	return "db"
+	return "database"
 }
 
 func (m *Command) Run(ctx context.Context, root string, args []string) error {
