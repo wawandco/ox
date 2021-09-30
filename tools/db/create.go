@@ -21,7 +21,7 @@ func (d CreateCommand) HelpText() string {
 }
 
 func (d CreateCommand) ParentName() string {
-	return "db"
+	return "database"
 }
 
 func (d *CreateCommand) Run(ctx context.Context, root string, args []string) error {
