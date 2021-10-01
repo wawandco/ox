@@ -11,8 +11,7 @@ import (
 // printTopLevel prints the top level help text with a table that contains top level
 // commands (names) and descriptions.
 func (h *Command) printTopLevel() {
-	fmt.Printf("ox allows to build apps with ease\n\n")
-	fmt.Println("Usage:")
+	fmt.Println("Usage")
 	fmt.Printf("  ox [command]\n\n")
 
 	w := new(tabwriter.Writer)
@@ -20,7 +19,7 @@ func (h *Command) printTopLevel() {
 
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 8, 8, 3, '\t', 0)
-	fmt.Println("Commands:")
+	fmt.Print("Available top level Commands:\n\n")
 	fmt.Println("Command\t     Alias")
 
 	for _, plugin := range h.commands {
