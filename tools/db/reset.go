@@ -24,7 +24,7 @@ func (d ResetCommand) HelpText() string {
 }
 
 func (d ResetCommand) ParentName() string {
-	return "db"
+	return "database"
 }
 
 func (d *ResetCommand) Run(ctx context.Context, root string, args []string) error {

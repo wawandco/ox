@@ -10,7 +10,7 @@ import (
 
 var (
 	// The version of the CLI
-	version = "v1.5.3"
+	version = "v0.10.3"
 )
 
 var (

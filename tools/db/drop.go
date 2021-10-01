@@ -22,7 +22,7 @@ func (d DropCommand) HelpText() string {
 }
 
 func (d DropCommand) ParentName() string {
-	return "db"
+	return "database"
 }
 
 func (d *DropCommand) Run(ctx context.Context, root string, args []string) error {
