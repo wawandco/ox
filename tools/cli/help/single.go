@@ -12,9 +12,9 @@ import (
 // printSingle prints help details for a passed plugin
 // Usage, Subcommands and Flags.
 func (h *Command) printSingle(command plugins.Command, names []string) {
-
+	fmt.Println("Description:")
 	if th, ok := command.(plugins.HelpTexter); ok {
-		fmt.Printf("%v\n\n", th.HelpText())
+		fmt.Printf("  %v\n\n", th.HelpText())
 	}
 
 	fmt.Println("Usage:")
@@ -52,9 +52,7 @@ func (h *Command) printSingle(command plugins.Command, names []string) {
 		}
 	}
 	if th, ok := command.(plugins.Aliaser); ok {
-		fmt.Println("Alias:")
-		fmt.Println(th.Alias())
-		fmt.Println("")
+		fmt.Printf("Alias: \n  %s\n", th.Alias())
 	}
 
 	if th, ok := command.(plugins.FlagParser); ok {
