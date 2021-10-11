@@ -40,7 +40,7 @@ func SetRequestID(h buffalo.Handler) buffalo.Handler {
 To use a middleware Buffalo applications (and Groups) have the the `Use` method which takes one or more middleware functions and applies it to the application. 
 
 ### Ox default Middleware
-Ox default application ships with some default middleware which is defined in the `middleware` folder and used in `app/routes.go`. 
+Ox generated applications ship with default middleware for common things in Buffalo applications, these middleware are defined in the `middleware` folder and used in `app/routes.go`. 
 
 ```go
 // in routes.go
@@ -52,6 +52,11 @@ func setRoutes(root *buffalo.App) {
     ...
 ```
 
+As you can see there are 3 default middleware functions that are used in the application. Lets explain what those are:
+
+- middleware.Transaction: Takes care of setting up a `tx` field in the context for each request, so handlers can use it to access the database.
+- middleware.ParameterLogger: Logs the parameters of the request.
+- middleware.CSRF: Adds a CSRF token to the context for use in forms.
 
 
 For more info on Middleware see [Middleware](#middleware).
