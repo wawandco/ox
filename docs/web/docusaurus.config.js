@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'Ox CLI',
   tagline: "Ox is a CLI for Rapid application development in Go. It's focus is development productivity, maintainability and extensibility.",
-  url: 'https://oxcli.dev',
+  url: 'https://oxcli.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -61,5 +61,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+
+      image: "img/ox_og.png",
+      "metadatas": [
+        {name: 'og:type', content: 'website'},
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:title', content: 'Ox CLI'},
+        {name: 'twitter:description', content: 'Go CLI for Rapid Application Development.'},
+        {name: 'twitter:description', content: 'Go CLI for Rapid Application Development.'},
+      ],
     }),
 });
