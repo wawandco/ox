@@ -52,7 +52,7 @@ func setRoutes(root *buffalo.App) {
     ...
 ```
 
-As you can see there are 3 default middleware functions that are used in the application. Lets explain what those are:
+There are 3 default middleware functions that are used by the application. Lets explain what these are:
 
 - middleware.Transaction: Takes care of setting up a `tx` field in the context for each request, so handlers can use it to access the database.
 - middleware.ParameterLogger: Logs the parameters of the request.
