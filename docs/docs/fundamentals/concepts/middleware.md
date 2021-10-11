@@ -40,7 +40,7 @@ func SetRequestID(h buffalo.Handler) buffalo.Handler {
 To use a middleware Buffalo applications (and Groups) have the the `Use` method which takes one or more middleware functions and applies it to the application. 
 
 ### Ox default Middleware
-Ox generated applications ship with default middleware for common things in Buffalo applications, these middleware are defined in the `middleware` folder and used in `app/routes.go`. 
+Ox generated applications ship with default middleware for common things in Buffalo applications, these middleware are defined in the `middleware` folder and used in `app/routes.go`.
 
 ```go
 // in routes.go
