@@ -4,20 +4,20 @@ import (
 	"context"
 
 	"github.com/wawandco/ox/plugins"
-	"github.com/wawandco/ox/tools"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
 	// shared CLI instance, its here to
 	// simplify the API for custom plugins.
 	shared = &cli{
-		Plugins: tools.Base,
+		Plugins: plugins.Default,
 	}
 )
 
 // Use specific plugin by adding it to the
 // cli plugin list.
-func Use(plugins ...plugins.Plugin) {
+func Use(plugins ...core.Plugin) {
 	shared.Use(plugins...)
 }
 

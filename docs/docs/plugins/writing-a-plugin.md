@@ -75,7 +75,7 @@ import (
     "myapp/internal/ox/plugins/greet"
 
 	"github.com/wawandco/ox/cli"
-	"github.com/wawandco/ox/tools/soda"
+	"github.com/wawandco/ox/plugins/tools/soda"
 )
 
 // main function for the tooling cli, will be invoked by Ox
