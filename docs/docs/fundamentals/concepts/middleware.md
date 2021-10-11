@@ -17,7 +17,7 @@ Middleware functions are key component of the Buffalo framework, in Buffalo a Mi
 And in general, middleware functions are used to perform tasks that need to be done before or after an action is executed. 
 
 ### Middleware Anatomy
-Middleware function must have the [buffalo.Middleware](github.com/gobuffalo/buffalo) type which receives a handler and returns another one.
+Middleware function must have the [buffalo.Middleware](https://pkg.go.dev/github.com/gobuffalo/buffalo#MiddlewareFunc) type which receives a handler and returns another one.
 
 ```go
 type Middleware func(handler buffalo.Handler) buffalo.Handler
@@ -59,4 +59,4 @@ There are 3 default middleware functions that are used by the application. Lets 
 - middleware.CSRF: Adds a CSRF token to the context for use in forms.
 
 
-For more info on Middleware see [Middleware](#middleware).
+For more info on Middleware see [Middleware](https://pkg.go.dev/github.com/gobuffalo/buffalo#MiddlewareFunc).
