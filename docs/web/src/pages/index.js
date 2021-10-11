@@ -34,8 +34,8 @@ export default function Home() {
     <Layout
       title={`Welcome`}
       description="Ox documentation">
-      <HomepageHeader />
       <main>
+        <HomepageHeader />
         <HomepageFeatures />
       </main>
       <PageFooter />

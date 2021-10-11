@@ -39,6 +39,17 @@ html[data-theme='light'] .light-theme-logo {
     display: inline-block;
 }
 
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1 0 auto;
+  height: 100%;
+  padding-bottom: 90px;
+}
+
 .hero__subtitle {
   max-width: 50rem !important;
   margin-right: auto;
