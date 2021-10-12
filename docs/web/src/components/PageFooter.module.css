@@ -2,6 +2,8 @@
   text-align: center;
   padding: 2rem 0;
   background-color: rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+  margin-top: -90px;
 }
 
 .footer p{

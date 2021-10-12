@@ -33,9 +33,9 @@ export default function Home() {
   return (
     <Layout
       title={`Welcome`}
-      description="Ox documentation">
-      <HomepageHeader />
+      description="Go CLI for Rapid Application Development">
       <main>
+        <HomepageHeader />
         <HomepageFeatures />
       </main>
       <PageFooter />
