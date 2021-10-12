@@ -3,14 +3,14 @@ package cli
 import (
 	"testing"
 
-	"github.com/wawandco/ox/lifecycle/build"
-	"github.com/wawandco/ox/lifecycle/dev"
-	"github.com/wawandco/ox/lifecycle/generate"
-	"github.com/wawandco/ox/lifecycle/test"
-	"github.com/wawandco/ox/plugins"
-	"github.com/wawandco/ox/tools/cli/help"
-	"github.com/wawandco/ox/tools/cli/version"
-	"github.com/wawandco/ox/tools/db"
+	"github.com/wawandco/ox/plugins/base/build"
+	"github.com/wawandco/ox/plugins/base/dev"
+	"github.com/wawandco/ox/plugins/base/generate"
+	"github.com/wawandco/ox/plugins/base/help"
+	"github.com/wawandco/ox/plugins/base/test"
+	"github.com/wawandco/ox/plugins/base/version"
+	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/tools/db"
 )
 
 func Test_CliTestingAliaser(t *testing.T) {

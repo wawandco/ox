@@ -9,8 +9,8 @@ import (
 
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/log"
-	"github.com/wawandco/ox/plugins"
-	"github.com/wawandco/ox/tools/cli/help"
+	"github.com/wawandco/ox/plugins/base/help"
+	plugins "github.com/wawandco/ox/plugins/core"
 )
 
 // cli is the CLI wrapper for our tool. It is in charge
