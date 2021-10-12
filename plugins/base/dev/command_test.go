@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/wawandco/ox/plugins/base/dev"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 type (
@@ -49,7 +49,7 @@ func TestCommand(t *testing.T) {
 
 	plb := plugin{}
 
-	pls := []plugins.Plugin{
+	pls := []core.Plugin{
 		&plb,
 		&developer{},
 		&beforeDeveloper{},

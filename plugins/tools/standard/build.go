@@ -7,14 +7,14 @@ import (
 
 	"github.com/spf13/pflag"
 	"github.com/wawandco/ox/internal/info"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
 	// These are the interfaces we know that this
 	// plugin must satisfy for its correct functionality
-	_ plugins.Plugin     = (*Builder)(nil)
-	_ plugins.FlagParser = (*Builder)(nil)
+	_ core.Plugin     = (*Builder)(nil)
+	_ core.FlagParser = (*Builder)(nil)
 )
 
 type Builder struct {

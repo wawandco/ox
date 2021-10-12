@@ -2,12 +2,12 @@ package build
 
 import (
 	"github.com/spf13/pflag"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 func (b *Command) ParseFlags(args []string) {
 	for _, plugin := range b.builders {
-		fp, ok := plugin.(plugins.FlagParser)
+		fp, ok := plugin.(core.FlagParser)
 		if !ok {
 			continue
 		}
@@ -19,7 +19,7 @@ func (b *Command) ParseFlags(args []string) {
 func (b *Command) Flags() *pflag.FlagSet {
 	fs := pflag.NewFlagSet("build", pflag.ContinueOnError)
 	for _, plugin := range b.buildPlugins {
-		fp, ok := plugin.(plugins.FlagParser)
+		fp, ok := plugin.(core.FlagParser)
 		if !ok {
 			continue
 		}

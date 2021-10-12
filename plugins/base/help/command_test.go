@@ -5,17 +5,17 @@ import (
 	"strings"
 	"testing"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 func TestFindCommand(t *testing.T) {
 	hp := Command{
-		commands: []plugins.Command{},
+		commands: []core.Command{},
 	}
 
 	migrate := &subPl{}
 	pop := &testPlugin{}
-	pop.Receive([]plugins.Plugin{
+	pop.Receive([]core.Plugin{
 		migrate,
 	})
 
@@ -45,7 +45,7 @@ func TestFindCommand(t *testing.T) {
 			"migrate",
 		}
 
-		ht, ok := result.(plugins.HelpTexter)
+		ht, ok := result.(core.HelpTexter)
 		if result.Name() != "migrate" || !ok || ht.HelpText() != migrate.HelpText() || strings.Join(names, " ") != strings.Join(expected, " ") {
 			t.Fatal("didn't find our guy")
 		}
@@ -57,7 +57,7 @@ func TestFindCommand(t *testing.T) {
 			"pop",
 			"migrate",
 		}
-		ht, ok := result.(plugins.HelpTexter)
+		ht, ok := result.(core.HelpTexter)
 		if result.Name() != "migrate" || !ok || ht.HelpText() != migrate.HelpText() || strings.Join(names, " ") != strings.Join(expected, " ") {
 			t.Fatal("didn't find our guy")
 		}
@@ -66,7 +66,7 @@ func TestFindCommand(t *testing.T) {
 }
 
 type testPlugin struct {
-	subcommands []plugins.Command
+	subcommands []core.Command
 }
 
 func (tp testPlugin) Name() string {
@@ -85,9 +85,9 @@ func (tp *testPlugin) Run(ctx context.Context, root string, args []string) error
 	return nil
 }
 
-func (tp *testPlugin) Receive(pls []plugins.Plugin) {
+func (tp *testPlugin) Receive(pls []core.Plugin) {
 	for _, pl := range pls {
-		c, ok := pl.(plugins.Command)
+		c, ok := pl.(core.Command)
 		if !ok || c.ParentName() != tp.Name() {
 			continue
 		}
@@ -96,7 +96,7 @@ func (tp *testPlugin) Receive(pls []plugins.Plugin) {
 	}
 }
 
-func (tp *testPlugin) Subcommands() []plugins.Command {
+func (tp *testPlugin) Subcommands() []core.Command {
 	return tp.subcommands
 }
 

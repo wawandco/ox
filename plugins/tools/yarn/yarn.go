@@ -1,9 +1,9 @@
 package yarn
 
-import plugins "github.com/wawandco/ox/plugins/core"
+import "github.com/wawandco/ox/plugins/core"
 
 var (
-	_ plugins.Plugin = (*Plugin)(nil)
+	_ core.Plugin = (*Plugin)(nil)
 )
 
 type Plugin struct{}

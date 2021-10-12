@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // printTopLevel prints the top level help text with a table that contains top level
@@ -24,11 +24,11 @@ func (h *Command) printTopLevel() {
 
 	for _, plugin := range h.commands {
 		helpText := ""
-		if ht, ok := plugin.(plugins.HelpTexter); ok {
+		if ht, ok := plugin.(core.HelpTexter); ok {
 			helpText = ht.HelpText()
 		}
 
-		if p, ok := plugin.(plugins.Aliaser); ok {
+		if p, ok := plugin.(core.Aliaser); ok {
 			fmt.Fprintf(w, "  %v\t%v\t%v\n", plugin.Name(), p.Alias(), helpText)
 		} else {
 			fmt.Fprintf(w, "  %v\t\t%v\n", plugin.Name(), helpText)

@@ -8,13 +8,13 @@ import (
 	"path/filepath"
 
 	"github.com/wawandco/ox/plugins/base/fix"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 	"golang.org/x/mod/modfile"
 )
 
 var (
-	_ plugins.Plugin = (*Fixer)(nil)
-	_ fix.Fixer      = (*Fixer)(nil)
+	_ core.Plugin = (*Fixer)(nil)
+	_ fix.Fixer   = (*Fixer)(nil)
 
 	ErrModuleNameNeeded   = errors.New("module name needed")
 	ErrModuleNameNotFound = errors.New("module name not found")

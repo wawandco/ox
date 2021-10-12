@@ -9,13 +9,13 @@ import (
 	"text/tabwriter"
 
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 //HelpText returns the help Text of build function
 
-var _ plugins.Command = (*Command)(nil)
-var _ plugins.PluginReceiver = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
+var _ core.PluginReceiver = (*Command)(nil)
 
 type Command struct {
 	generators      []Generator
@@ -84,7 +84,7 @@ func (c Command) list() {
 	fmt.Fprintf(w, "  ----\t------\n")
 	for _, plugin := range c.generators {
 		helpText := ""
-		if ht, ok := plugin.(plugins.HelpTexter); ok {
+		if ht, ok := plugin.(core.HelpTexter); ok {
 			helpText = ht.HelpText()
 		}
 
@@ -94,7 +94,7 @@ func (c Command) list() {
 	fmt.Fprintf(w, "\n")
 }
 
-func (c *Command) Receive(plugins []plugins.Plugin) {
+func (c *Command) Receive(plugins []core.Plugin) {
 	for _, plugin := range plugins {
 		ptool, ok := plugin.(Generator)
 		if !ok {

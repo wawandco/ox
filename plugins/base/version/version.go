@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 
 var (
 	// Version is a Command
-	_ plugins.Command = (*Command)(nil)
+	_ core.Command = (*Command)(nil)
 )
 
 // Command command will print X version.

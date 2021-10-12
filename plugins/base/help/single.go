@@ -6,14 +6,14 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // printSingle prints help details for a passed plugin
 // Usage, Subcommands and Flags.
-func (h *Command) printSingle(command plugins.Command, names []string) {
+func (h *Command) printSingle(command core.Command, names []string) {
 	fmt.Println("Description:")
-	if th, ok := command.(plugins.HelpTexter); ok {
+	if th, ok := command.(core.HelpTexter); ok {
 		fmt.Printf("  %v\n\n", th.HelpText())
 	}
 
@@ -24,7 +24,7 @@ func (h *Command) printSingle(command plugins.Command, names []string) {
 		usage = fmt.Sprintf("  ox %v \n", strings.Join(names, " "))
 	}
 
-	th, isSubcommander := command.(plugins.Subcommander)
+	th, isSubcommander := command.(core.Subcommander)
 	if isSubcommander {
 		usage = fmt.Sprintf("  ox %v [subcommand]\n", command.Name())
 	}
@@ -44,18 +44,18 @@ func (h *Command) printSingle(command plugins.Command, names []string) {
 			}
 
 			helpText := ""
-			if ht, ok := scomm.(plugins.HelpTexter); ok {
+			if ht, ok := scomm.(core.HelpTexter); ok {
 				helpText = ht.HelpText()
 			}
 
 			fmt.Fprintf(w, "  %v\t%v\n", scomm.Name(), helpText)
 		}
 	}
-	if th, ok := command.(plugins.Aliaser); ok {
+	if th, ok := command.(core.Aliaser); ok {
 		fmt.Printf("Alias: \n  %s\n", th.Alias())
 	}
 
-	if th, ok := command.(plugins.FlagParser); ok {
+	if th, ok := command.(core.FlagParser); ok {
 		fmt.Println("Flags:")
 
 		flags := th.Flags()

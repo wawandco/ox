@@ -11,13 +11,13 @@ import (
 	"github.com/wawandco/ox/plugins/base/new"
 	"github.com/wawandco/ox/plugins/base/test"
 	"github.com/wawandco/ox/plugins/base/version"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // Plugins that should be base to any OX CLI app, these provide the
 // foundation for the app to work and its where teams would hook
 // their own plugins.
-var Plugins = []plugins.Plugin{
+var Plugins = []core.Plugin{
 	&build.Command{},
 	&dev.Command{},
 	&test.Command{},

@@ -10,14 +10,14 @@ import (
 	"github.com/gobuffalo/flect"
 	"github.com/spf13/pflag"
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
 	// These are the interfaces we know that this
 	// plugin must satisfy for its correct functionality
-	_ plugins.Plugin     = (*Generator)(nil)
-	_ plugins.FlagParser = (*Generator)(nil)
+	_ core.Plugin     = (*Generator)(nil)
+	_ core.FlagParser = (*Generator)(nil)
 )
 
 // Generator allows to identify model as a plugin
@@ -79,7 +79,7 @@ func (g *Generator) Flags() *pflag.FlagSet {
 	return g.flags
 }
 
-func (g *Generator) Receive(pls []plugins.Plugin) {
+func (g *Generator) Receive(pls []core.Plugin) {
 	for _, v := range pls {
 		cr, ok := v.(Creator)
 		if !ok {

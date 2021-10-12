@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 	"golang.org/x/sync/errgroup"
 )
 
-var _ plugins.Command = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
 
 // Command is the dev command, it runs the dev plugins, each one on a different
 // go routine. the detail to what happen on each of these plugins is up to
@@ -66,7 +66,7 @@ func (d *Command) Run(ctx context.Context, root string, args []string) error {
 
 // Receive Developer and BeforeDeveloper plugins and store these
 // in the Command to be used when the command is invoked.
-func (d *Command) Receive(plugins []plugins.Plugin) {
+func (d *Command) Receive(plugins []core.Plugin) {
 	for _, tool := range plugins {
 		if ptool, ok := tool.(Developer); ok {
 			d.developers = append(d.developers, ptool)

@@ -1,11 +1,11 @@
 package test
 
-import plugins "github.com/wawandco/ox/plugins/core"
+import "github.com/wawandco/ox/plugins/core"
 
 // Receive takes BeforeTesters, AfterTesters and Testers
 // from the passed list of pugins and save those in the
 // instance of Command so these get used later on.
-func (b *Command) Receive(plugins []plugins.Plugin) {
+func (b *Command) Receive(plugins []core.Plugin) {
 	for _, plugin := range plugins {
 
 		if ptool, ok := plugin.(BeforeTester); ok {

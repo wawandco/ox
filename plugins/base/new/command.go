@@ -7,11 +7,11 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/pflag"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
-var _ plugins.Command = (*Command)(nil)
-var _ plugins.PluginReceiver = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
+var _ core.PluginReceiver = (*Command)(nil)
 var ErrNoNameProvided = errors.New("the name for the new app is needed")
 
 // Command to generate New applications.
@@ -84,7 +84,7 @@ func (d *Command) Run(ctx context.Context, root string, args []string) error {
 }
 
 // Receive and store initializers
-func (d *Command) Receive(plugins []plugins.Plugin) {
+func (d *Command) Receive(plugins []core.Plugin) {
 	for _, tool := range plugins {
 		i, ok := tool.(Initializer)
 		if ok {

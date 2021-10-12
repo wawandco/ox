@@ -7,14 +7,14 @@ import (
 	"strings"
 	"testing"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 	"github.com/wawandco/ox/plugins/tools/soda/fizz"
 	"github.com/wawandco/ox/plugins/tools/soda/sql"
 )
 
 func Test_Generate(t *testing.T) {
 	g := Generator{}
-	g.Receive([]plugins.Plugin{&fizz.Creator{}, &sql.Creator{}})
+	g.Receive([]core.Plugin{&fizz.Creator{}, &sql.Creator{}})
 
 	t.Run("generate fizz migration", func(t *testing.T) {
 		dir := t.TempDir()

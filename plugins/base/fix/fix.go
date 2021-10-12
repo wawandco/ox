@@ -8,13 +8,13 @@ import (
 	"fmt"
 
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 //HelpText returns the help Text of build function
 
-var _ plugins.Command = (*Command)(nil)
-var _ plugins.PluginReceiver = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
+var _ core.PluginReceiver = (*Command)(nil)
 
 type Command struct {
 	fixers []Fixer
@@ -43,7 +43,7 @@ func (c *Command) Run(ctx context.Context, root string, args []string) error {
 	return nil
 }
 
-func (c *Command) Receive(plugins []plugins.Plugin) {
+func (c *Command) Receive(plugins []core.Plugin) {
 	for _, plugin := range plugins {
 		if ptool, ok := plugin.(Fixer); ok {
 			c.fixers = append(c.fixers, ptool)
