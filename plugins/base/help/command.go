@@ -6,12 +6,12 @@ import (
 	"errors"
 	"fmt"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
 	// Help is a Command
-	_ plugins.Command = (*Command)(nil)
+	_ core.Command = (*Command)(nil)
 
 	ErrSubCommandNotFound = errors.New("subcommand not found")
 
@@ -21,7 +21,7 @@ var (
 
 // Help command that prints
 type Command struct {
-	commands []plugins.Command
+	commands []core.Command
 }
 
 func (h Command) Name() string {
@@ -56,13 +56,13 @@ func (h *Command) Run(ctx context.Context, root string, args []string) error {
 	return nil
 }
 
-func (h *Command) findCommand(args []string) (plugins.Command, []string) {
+func (h *Command) findCommand(args []string) (core.Command, []string) {
 	if len(args) < 2 {
 		return nil, nil
 	}
 
 	var commands = h.commands
-	var command plugins.Command
+	var command core.Command
 	var argIndex = 1
 	var fndNames []string
 
@@ -70,7 +70,7 @@ func (h *Command) findCommand(args []string) (plugins.Command, []string) {
 		var name = args[argIndex]
 		for _, c := range commands {
 			// TODO: If its a subcommand check also the SubcommandName
-			a, ok := c.(plugins.Aliaser)
+			a, ok := c.(core.Aliaser)
 			if !ok {
 				if c.Name() != name {
 					continue
@@ -102,7 +102,7 @@ func (h *Command) findCommand(args []string) (plugins.Command, []string) {
 			break
 		}
 
-		sc, ok := command.(plugins.Subcommander)
+		sc, ok := command.(core.Subcommander)
 		if !ok {
 			break
 		}
@@ -115,9 +115,9 @@ func (h *Command) findCommand(args []string) (plugins.Command, []string) {
 
 // Receive the plugins and stores the Commands for
 // later usage on the help text.
-func (h *Command) Receive(pl []plugins.Plugin) {
+func (h *Command) Receive(pl []core.Plugin) {
 	for _, plugin := range pl {
-		ht, ok := plugin.(plugins.Command)
+		ht, ok := plugin.(core.Command)
 		if ok && ht.ParentName() == "" {
 			h.commands = append(h.commands, ht)
 		}

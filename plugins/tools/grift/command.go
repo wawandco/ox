@@ -7,13 +7,13 @@ import (
 	"text/tabwriter"
 
 	"github.com/markbates/grift/grift"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 var (
 	// We want grift task to be invoked from any place.
 	// this is because of production/compiled usage of the tasks.
-	_ plugins.RootFinder = (*Command)(nil)
+	_ core.RootFinder = (*Command)(nil)
 )
 
 // Grift command is a root command to run tasks

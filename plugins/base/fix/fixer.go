@@ -3,7 +3,7 @@ package fix
 import (
 	"context"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // Fixer interface is created for those commands that fill fix certain
@@ -11,6 +11,6 @@ import (
 // a good way to transition from old versions of the tools into newer
 // ones
 type Fixer interface {
-	plugins.Plugin
+	core.Plugin
 	Fix(context.Context, string, []string) error
 }

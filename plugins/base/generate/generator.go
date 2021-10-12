@@ -3,13 +3,13 @@ package generate
 import (
 	"context"
 
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // Generator allows to identify those plugins that are
 // generators.
 type Generator interface {
-	plugins.Plugin
+	core.Plugin
 	InvocationName() string
 	Generate(context.Context, string, []string) error
 }
@@ -19,6 +19,6 @@ type Generator interface {
 type AfterGenerator interface {
 	// AfterGenerate receives the context and other params so it can determine if should
 	// run or not.
-	plugins.Plugin
+	core.Plugin
 	AfterGenerate(context.Context, string, []string) error
 }

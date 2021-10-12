@@ -9,12 +9,12 @@ import (
 	"github.com/wawandco/ox/plugins/base/help"
 	"github.com/wawandco/ox/plugins/base/test"
 	"github.com/wawandco/ox/plugins/base/version"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 	"github.com/wawandco/ox/plugins/tools/db"
 )
 
 func Test_CliTestingAliaser(t *testing.T) {
-	plugins := []plugins.Plugin{
+	plugins := []core.Plugin{
 		&generate.Command{},
 		&build.Command{},
 		&dev.Command{},

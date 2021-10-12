@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/wawandco/ox/plugins/base/new"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 func TestRun(t *testing.T) {
@@ -19,7 +19,7 @@ func TestRun(t *testing.T) {
 
 	pl := &new.Command{}
 	tinit := &Tinit{}
-	pl.Receive([]plugins.Plugin{tinit})
+	pl.Receive([]core.Plugin{tinit})
 
 	err = pl.Run(context.Background(), root, []string{})
 	if err == nil {

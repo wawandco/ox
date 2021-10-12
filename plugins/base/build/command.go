@@ -6,13 +6,13 @@ import (
 	"os"
 
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
-var _ plugins.Command = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
 
 type Command struct {
-	buildPlugins []plugins.Plugin
+	buildPlugins []core.Plugin
 
 	builders       []Builder
 	afterBuilders  []AfterBuilder
@@ -84,7 +84,7 @@ func (b *Command) Run(ctx context.Context, root string, args []string) error {
 	return nil
 }
 
-func (b *Command) Receive(plugins []plugins.Plugin) {
+func (b *Command) Receive(plugins []core.Plugin) {
 	for _, plugin := range plugins {
 		isBuildPlugin := false
 		if ptool, ok := plugin.(BeforeBuilder); ok {

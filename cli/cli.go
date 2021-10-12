@@ -10,29 +10,29 @@ import (
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/log"
 	"github.com/wawandco/ox/plugins/base/help"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 // cli is the CLI wrapper for our tool. It is in charge
 // for articulating different commands, finding it and also
 // taking care of the CLI iteraction.
 type cli struct {
-	Plugins []plugins.Plugin
+	Plugins []core.Plugin
 }
 
 // findCommand looks in the plugins for a command
 // with the passed name.
-func (c *cli) findCommand(name string) plugins.Command {
+func (c *cli) findCommand(name string) core.Command {
 	for _, cm := range c.Plugins {
 		// We skip subcommands on this case
 		// those will be wired by the parent command implementing
 		// Receive.
-		command, ok := cm.(plugins.Command)
+		command, ok := cm.(core.Command)
 		if !ok || command.ParentName() != "" {
 			continue
 		}
 
-		alias, ok := cm.(plugins.Aliaser)
+		alias, ok := cm.(core.Aliaser)
 		if ok && alias.Alias() == name {
 			return command
 		}
@@ -82,11 +82,11 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 
 	// Passing args and plugins to those plugins that require them
 	for _, plugin := range c.Plugins {
-		pf, ok := plugin.(plugins.FlagParser)
+		pf, ok := plugin.(core.FlagParser)
 		if ok {
 			pf.ParseFlags(args[1:])
 		}
-		pr, ok := plugin.(plugins.PluginReceiver)
+		pr, ok := plugin.(core.PluginReceiver)
 		if ok {
 			pr.Receive(c.Plugins)
 		}
@@ -104,7 +104,7 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 	// some other commands may want to determine the root by themself,
 	// doing os.Getwd or something similar. The latter ones are RootFinders.
 	root := info.RootFolder()
-	rf, ok := command.(plugins.RootFinder)
+	rf, ok := command.(core.RootFinder)
 	if root == "" && !ok {
 		return errors.New("go.mod not found")
 	}
@@ -118,14 +118,14 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 
 // Use passed Pugins by appending these to the
 // plugins list inside the CLI.
-func (cl *cli) Use(plugins ...plugins.Plugin) {
+func (cl *cli) Use(plugins ...core.Plugin) {
 	cl.Plugins = append(cl.Plugins, plugins...)
 }
 
 // Remove looks in the plugins list and removes plugins that
 // match passed names.
 func (cl *cli) Remove(names ...string) {
-	result := []plugins.Plugin{}
+	result := []core.Plugin{}
 	for _, pl := range cl.Plugins {
 		var found bool
 		for _, restricted := range names {
@@ -146,7 +146,7 @@ func (cl *cli) Remove(names ...string) {
 
 // Clear the plugin list of the CLI.
 func (cl *cli) Clear() {
-	cl.Plugins = []plugins.Plugin{}
+	cl.Plugins = []core.Plugin{}
 }
 
 // New creates a CLI with the passed root and plugins. This becomes handy
@@ -155,7 +155,7 @@ func New() *cli {
 	log.Warn("cli.New() is deprecated, se with caution.")
 
 	return &cli{
-		Plugins: []plugins.Plugin{
+		Plugins: []core.Plugin{
 			help.Command{},
 		},
 	}

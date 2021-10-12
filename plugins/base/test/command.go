@@ -7,12 +7,12 @@ import (
 	"context"
 
 	"github.com/wawandco/ox/internal/log"
-	plugins "github.com/wawandco/ox/plugins/core"
+	"github.com/wawandco/ox/plugins/core"
 )
 
-var _ plugins.Plugin = (*Command)(nil)
-var _ plugins.PluginReceiver = (*Command)(nil)
-var _ plugins.Command = (*Command)(nil)
+var _ core.Plugin = (*Command)(nil)
+var _ core.PluginReceiver = (*Command)(nil)
+var _ core.Command = (*Command)(nil)
 
 type Command struct {
 	beforeTesters []BeforeTester
