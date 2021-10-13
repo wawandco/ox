@@ -41,7 +41,10 @@ func TestDatabase(t *testing.T) {
 	t.Cleanup(func() {
 		for _, v := range conns {
 			v.Close()
-			pop.DropDB(v)
+			err := pop.DropDB(v)
+			if err != nil {
+				t.Fatal(err)
+			}
 		}
 	})
 
