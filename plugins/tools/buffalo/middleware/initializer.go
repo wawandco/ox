@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"embed"
+	_ "embed"
 	"path/filepath"
 
 	"github.com/wawandco/ox/internal/source"
@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	//go:embed templates
-	templates embed.FS
+	//go:embed middleware.go.tmpl
+	middlewareTemplate string
 )
 
 // Initializer
@@ -22,12 +22,8 @@ func (i Initializer) Name() string {
 }
 
 func (i *Initializer) Initialize(ctx context.Context, options new.Options) error {
-	template, err := templates.ReadFile("templates/middleware.go.tmpl")
-	if err != nil {
-		return err
-	}
 
 	filename := filepath.Join(options.Folder, "app", "middleware", "middleware.go")
-	err = source.Build(filename, string(template), options.Module)
+	err := source.Build(filename, middlewareTemplate, options.Module)
 	return err
 }
