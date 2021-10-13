@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -30,7 +29,6 @@ func Database(db, rodb *pop.Connection) buffalo.MiddlewareFunc {
 
 			switch c.Request().Method {
 			default:
-				fmt.Println(">> Idempotent <<")
 				// If the passed read only db (rodb) is different than nil it should use it.
 				// As this block is for read only operations.
 				if rodb != nil {
@@ -41,8 +39,6 @@ func Database(db, rodb *pop.Connection) buffalo.MiddlewareFunc {
 
 				return h(c)
 			case http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodPatch:
-				fmt.Println(">> Non Idempotent <<")
-
 				couldBeDBorYourErr := dbc.Transaction(func(tx *pop.Connection) error {
 					// setup logging
 					start := tx.Elapsed
