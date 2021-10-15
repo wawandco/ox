@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/fatih/color v1.12.0
-	github.com/gobuffalo/buffalo v0.17.3
+	github.com/gobuffalo/buffalo v0.16.21
 	github.com/gobuffalo/envy v1.9.0
 	github.com/gobuffalo/fizz v1.13.0
 	github.com/gobuffalo/flect v0.2.3
@@ -15,7 +15,6 @@ require (
 	github.com/markbates/errx v1.1.0
 	github.com/markbates/grift v1.5.0
 	github.com/markbates/refresh v1.11.1
-	github.com/matryer/is v1.4.0
 	github.com/pkg/errors v0.9.1
 	github.com/rogpeppe/go-internal v1.6.1 // indirect
 	github.com/spf13/pflag v1.0.5
