@@ -4,7 +4,7 @@ date: 2021-09-06T14:47:48-05:00
 type: command
 ---
 
-The `new` command generates a new Ox application with the ox [folder structure](/docs/fundamentals/folder-structure). To create the app you can run the following command:
+The `new` command generates a new Ox application with the ox [folder structure](/docs/fundamentals/folders). To create the app you can run the following command:
 
 ```sh
 ox new <app-name>
