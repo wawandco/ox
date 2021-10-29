@@ -15,7 +15,6 @@ require (
 	github.com/markbates/errx v1.1.0
 	github.com/markbates/grift v1.5.0
 	github.com/markbates/refresh v1.11.1
-	github.com/matryer/is v1.4.0
 	github.com/pkg/errors v0.9.1
 	github.com/rogpeppe/go-internal v1.6.1 // indirect
 	github.com/spf13/pflag v1.0.5
