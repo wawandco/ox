@@ -81,5 +81,5 @@ var (
 Ox `build` command invokes the `build` script in package.json. Webpack takes care of building the assets and putting these in the `public/assets` folder. 
 
 #### Embedded Assets
-Once the process has finished the `embed.go` file contains a box that points to the `public/assets` folder. We use `fsbox` to provide a `packd` box that will serve Buffalo to serve these files.
+Once the process has finished the `embedded.go` file contains a box that points to the `public/assets` folder. We use `fsbox` to provide a `packd` box that will serve Buffalo to serve these files.
 
