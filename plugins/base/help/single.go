@@ -31,12 +31,15 @@ func (h *Command) printSingle(command core.Command, names []string) {
 
 	fmt.Println(usage)
 
+	if th, ok := command.(core.Aliaser); ok {
+		fmt.Printf("Alias: \n  %s\n\n", th.Alias())
+	}
+
 	if isSubcommander {
 		w := new(tabwriter.Writer)
-		defer w.Flush()
 
 		w.Init(os.Stdout, 8, 8, 3, '\t', 0)
-		fmt.Println("Subcommands:")
+		fmt.Fprintf(w, "%v\n", "Subcommands:")
 
 		for _, scomm := range th.Subcommands() {
 			if scomm.ParentName() == "" {
@@ -50,9 +53,8 @@ func (h *Command) printSingle(command core.Command, names []string) {
 
 			fmt.Fprintf(w, "  %v\t%v\n", scomm.Name(), helpText)
 		}
-	}
-	if th, ok := command.(core.Aliaser); ok {
-		fmt.Printf("Alias: \n  %s\n", th.Alias())
+
+		w.Flush()
 	}
 
 	if th, ok := command.(core.FlagParser); ok {

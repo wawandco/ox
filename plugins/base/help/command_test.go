@@ -28,20 +28,21 @@ func TestFindCommand(t *testing.T) {
 		}
 	})
 
-	t.Run("top level command", func(*testing.T) {
-		result, names := hp.findCommand([]string{"help", "pop"})
+	t.Run("top level command", func(t *testing.T) {
+		result, names := hp.findCommand([]string{"help", "database"})
 		expected := []string{
-			"pop",
+			"database",
 		}
-		if result.Name() != "pop" || strings.Join(names, " ") != strings.Join(expected, " ") {
+
+		if result.Name() != "database" || strings.Join(names, " ") != strings.Join(expected, " ") {
 			t.Fatal("didn't find our guy")
 		}
 	})
 
 	t.Run("subcommand lookup", func(*testing.T) {
-		result, names := hp.findCommand([]string{"help", "pop", "migrate"})
+		result, names := hp.findCommand([]string{"help", "database", "migrate"})
 		expected := []string{
-			"pop",
+			"database",
 			"migrate",
 		}
 
@@ -52,9 +53,9 @@ func TestFindCommand(t *testing.T) {
 	})
 
 	t.Run("extra args on non-subcommander", func(*testing.T) {
-		result, names := hp.findCommand([]string{"help", "pop", "migrate", "other", "thing"})
+		result, names := hp.findCommand([]string{"help", "database", "migrate", "other", "thing"})
 		expected := []string{
-			"pop",
+			"database",
 			"migrate",
 		}
 		ht, ok := result.(core.HelpTexter)
@@ -70,7 +71,7 @@ type testPlugin struct {
 }
 
 func (tp testPlugin) Name() string {
-	return "pop"
+	return "database"
 }
 
 func (tp testPlugin) ParentName() string {
@@ -107,7 +108,7 @@ func (tp subPl) Name() string {
 }
 
 func (tp subPl) ParentName() string {
-	return "pop"
+	return "database"
 }
 
 func (tp subPl) HelpText() string {
