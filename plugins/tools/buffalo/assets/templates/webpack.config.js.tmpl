@@ -1,28 +1,25 @@
 const Webpack = require("webpack");
 const Glob = require("glob");
-const path = require('path');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const LiveReloadPlugin = require('@kooneko/livereload-webpack-plugin');
+const LiveReloadPlugin = require("webpack-livereload-plugin");
 
 const configurator = {
   entries: function(){
     var entries = {
       application: [
-        './node_modules/jquery-ujs/src/rails.js',
-        './app/assets/css/application.scss',
+        './assets/css/application.scss',
       ],
     }
 
-    Glob.sync("./app/assets/*/*.*").forEach((entry) => {
-      if (entry === './app/assets/css/application.scss') {
+    Glob.sync("./assets/*/*.*").forEach((entry) => {
+      if (entry === './assets/css/application.scss') {
         return
       }
 
-      let key = entry.replace(/(\.\/app\/assets\/(src|js|css|go)\/)|\.(ts|js|s[ac]ss|go)/g, '')
+      let key = entry.replace(/(\.\/assets\/(src|js|css|go)\/)|\.(ts|js|s[ac]ss|go)/g, '')
       if(key.startsWith("_") || (/(ts|js|s[ac]ss|go)$/i).test(entry) == false) {
         return
       }
@@ -38,29 +35,26 @@ const configurator = {
   },
 
   plugins() {
-    var static_file_mapping = {};
     var plugins = [
-      new Webpack.ProvidePlugin({$: "jquery",jQuery: "jquery"}),
+      new Webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+      }),
       new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
       new CopyWebpackPlugin({
         patterns: [{
-            from: "./app/assets",
-            to: "[path][name][ext]",
-            filter: async (resourcePath) => {
-              let ignore = resourcePath.match(/.*\/app\/assets\/(css|js)\/.*/g);
-              return !ignore;
-            },
-            transformPath(targetPath, absosutePath) {
-              relative_path = path.relative(path.resolve('./assets'),absosutePath)
-              static_file_mapping[relative_path] = targetPath;
-
-              return targetPath;
-            }
-        }]
+          from: "./assets",
+          globOptions: {
+            ignore: [
+              "**/css/**", 
+              "**/js/**", 
+              "**/src/**",
+            ]
+          }
+        }],
       }),
       new Webpack.LoaderOptionsPlugin({minimize: true,debug: false}),
-      new WebpackManifestPlugin({fileName: "manifest.json", seed: static_file_mapping}),
-      new CleanWebpackPlugin()
+      new WebpackManifestPlugin({fileName: "manifest.json",publicPath: ""})
     ];
 
     return plugins
@@ -69,19 +63,20 @@ const configurator = {
   moduleOptions: function() {
     return {
       rules: [
-        { test: require.resolve("jquery"),loader: "expose-loader",options: {exposes: ["$", "jQuery"]} },
         {
           test: /\.s[ac]ss$/,
           use: [
-            { loader: MiniCssExtractPlugin.loader, options: {publicPath: ''} },
+            MiniCssExtractPlugin.loader,
             { loader: "css-loader", options: {sourceMap: true}},
             { loader: "postcss-loader", options: {sourceMap: true}},
             { loader: "sass-loader", options: {sourceMap: true}}
           ]
         },
-        
-        { test: /\.jsx?$/, loader: "babel-loader", exclude: /node_modules/ },
-        { test: /\.(eot|woff|woff2|ttf|svg|png)(\?v=\d+\.\d+\.\d+)?$/, type: 'asset/resource' },
+        { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/},
+        { test: /\.jsx?$/,loader: "babel-loader",exclude: /node_modules/ },
+        { test: /\.(woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,use: "url-loader"},
+        { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,use: "file-loader" },
+        { test: /\.go$/, use: "gopherjs-loader"}
       ]
     }
   },
@@ -96,33 +91,23 @@ const configurator = {
       mode: env,
       entry: configurator.entries(),
       output: {
-        filename: "[name].[contenthash].js",
+        filename: "[name].[contenthash].js", 
         path: `${__dirname}/public/assets`,
-        publicPath: ''
+        clean: true,
       },
       plugins: configurator.plugins(),
       module: configurator.moduleOptions(),
       resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.js', '.json']
       }
     }
 
     if( env === "development" ){
-      config.plugins.push(new LiveReloadPlugin({appendScript: true}))
-      
+      config.plugins.push(new LiveReloadPlugin({appendScriptTag: true}))
       return config
     }
 
-    config.optimization = {
-      minimizer: [configurator.terser()]
-    }
-
-    return config
-  },
-  
-  // Terser returns the unglyfier used in production mode.
-  terser: function() {
-    return new TerserPlugin({
+    const terser = new TerserPlugin({
       terserOptions: {
         compress: {},
         mangle: {
@@ -134,6 +119,12 @@ const configurator = {
       },
       extractComments: false,
     })
+
+    config.optimization = {
+      minimizer: [terser]
+    }
+
+    return config
   }
 }
 
