@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/wawandco/ox/plugins/base/content"
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -14,9 +15,6 @@ var (
 	_ core.Command = (*Command)(nil)
 
 	ErrSubCommandNotFound = errors.New("subcommand not found")
-
-	//go:embed ascii.txt
-	banner string
 )
 
 // Help command that prints
@@ -43,7 +41,7 @@ func (h Command) HelpText() string {
 
 // Run the help command
 func (h *Command) Run(ctx context.Context, root string, args []string) error {
-	fmt.Println(banner)
+	fmt.Println(content.Banner)
 
 	command, names := h.findCommand(args)
 	if command == nil {

@@ -74,6 +74,7 @@ func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []st
 
 func (d *ResetCommand) ParseFlags(args []string) {
 	d.flags = pflag.NewFlagSet(d.Name(), pflag.ContinueOnError)
+	d.flags.Usage = func() {}
 	d.flags.StringVarP(&d.connectionName, "conn", "", "development", "the name of the connection to use")
 	d.flags.Parse(args) //nolint:errcheck,we don't care hence the flag
 }

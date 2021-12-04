@@ -35,6 +35,7 @@ func (d *CreateCommand) Run(ctx context.Context, root string, args []string) err
 
 func (d *CreateCommand) ParseFlags(args []string) {
 	d.flags = pflag.NewFlagSet(d.Name(), pflag.ContinueOnError)
+	d.flags.Usage = func() {}
 	d.flags.StringVarP(&d.connectionName, "conn", "", "development", "the name of the connection to use")
 	d.flags.Parse(args) //nolint:errcheck,we don't care hence the flag
 }
