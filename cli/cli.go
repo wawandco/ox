@@ -78,17 +78,10 @@ func (c *cli) Wrap(ctx context.Context, args []string) error {
 
 func (c *cli) Run(ctx context.Context, args []string) error {
 	if len(args) < 2 {
+		fmt.Println(content.Banner)
 		log.Error("no command provided, please provide one")
 		return nil
 	}
-
-	//remove --help from the args
-	// cl := []string{}
-	// for _, arg := range args[1:] {
-	// 	if arg != "--help" {
-	// 		cl = append(cl, arg)
-	// 	}
-	// }
 
 	// Passing args and plugins to those plugins that require them
 	for _, plugin := range c.Plugins {
