@@ -71,6 +71,7 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 
 func (g *Generator) ParseFlags(args []string) {
 	g.flags = pflag.NewFlagSet("type", pflag.ContinueOnError)
+	g.flags.Usage = func() {}
 	g.flags.StringVarP(&g.migrationType, "type", "t", "fizz", "the type of the migration")
 	g.flags.Parse(args) //nolint:errcheck,we don't care hence the flag
 }

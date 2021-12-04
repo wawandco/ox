@@ -59,6 +59,7 @@ func (m *Command) Run(ctx context.Context, root string, args []string) error {
 
 func (m *Command) ParseFlags(args []string) {
 	m.flags = pflag.NewFlagSet(m.Name(), pflag.ContinueOnError)
+	m.flags.Usage = func() {}
 	m.flags.StringVarP(&m.connectionName, "conn", "", "development", "the name of the connection to use")
 	m.flags.IntVarP(&m.steps, "steps", "s", 0, "how many migrations to run")
 	m.flags.Parse(args) //nolint:errcheck,we don't care hence the flag

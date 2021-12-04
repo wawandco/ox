@@ -103,6 +103,7 @@ func (d *Command) AppName(args []string) string {
 
 func (d *Command) ParseFlags(args []string) {
 	d.flags = pflag.NewFlagSet(d.Name(), pflag.ContinueOnError)
+	d.flags.Usage = func() {}
 	d.flags.BoolVarP(&d.force, "force", "f", false, "clear existing folder if found.")
 	d.flags.Parse(args) //nolint:errcheck,we don't care hence the flag
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/wawandco/ox/plugins/base/content"
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -39,7 +40,8 @@ func (b Command) HelpText() string {
 
 // Run prints the version of the ox cli
 func (b *Command) Run(ctx context.Context, root string, args []string) error {
-	fmt.Printf("ox version %v\n", version)
+	fmt.Println(content.Banner)
+	fmt.Printf("Version %v\n", version)
 
 	return nil
 }
