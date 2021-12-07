@@ -50,12 +50,6 @@ func (c *cli) findCommand(name string) core.Command {
 
 // Runs the CLI or cmd/ox/main.go
 func (c *cli) Wrap(ctx context.Context, args []string) error {
-	// Not sure if we should do this here or somewhere
-	// else, these are some environment variables to be set
-	// and other things to check.
-	os.Setenv("GO111MODULE", "on") // Modules must be ON
-	os.Setenv("CGO_ENABLED", "0")  // CGO disabled
-
 	path := filepath.Join("cmd", "ox", "main.go")
 	_, err := os.Stat(path)
 	name := info.ModuleName()
