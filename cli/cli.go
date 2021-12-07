@@ -3,12 +3,14 @@ package cli
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/log"
+	"github.com/wawandco/ox/plugins/base/content"
 	"github.com/wawandco/ox/plugins/base/help"
 	"github.com/wawandco/ox/plugins/core"
 )
@@ -76,6 +78,7 @@ func (c *cli) Wrap(ctx context.Context, args []string) error {
 
 func (c *cli) Run(ctx context.Context, args []string) error {
 	if len(args) < 2 {
+		fmt.Println(content.Banner)
 		log.Error("no command provided, please provide one")
 		return nil
 	}
@@ -86,6 +89,7 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 		if ok {
 			pf.ParseFlags(args[1:])
 		}
+
 		pr, ok := plugin.(core.PluginReceiver)
 		if ok {
 			pr.Receive(c.Plugins)
@@ -94,7 +98,7 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 
 	command := c.findCommand(args[1])
 	if command == nil {
-		// TODO: print help ?
+		fmt.Println(content.Banner)
 		log.Infof("did not find %s command\n", args[1])
 		return nil
 	}

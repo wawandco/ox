@@ -82,7 +82,9 @@ var Default = append(base.Plugins,
 	&soda.Initializer{},
 	&git.Initializer{},
 
-	&standard.AfterInitializer{},
+	// &standard.AfterInitializer{},
+	&standard.GetBuffalo{},
+	&standard.ModTidy{},
 	&yarn.AfterInitializer{},
 	&git.AfterInitializer{},
 
@@ -93,7 +95,4 @@ var Default = append(base.Plugins,
 	// Migration Creators
 	&fizz.Creator{},
 	&sql.Creator{},
-
-	// Aftergenerators
-	&standard.GoModAfterGenerator{},
 )

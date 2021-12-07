@@ -18,6 +18,8 @@ func (b *Command) ParseFlags(args []string) {
 
 func (b *Command) Flags() *pflag.FlagSet {
 	fs := pflag.NewFlagSet("build", pflag.ContinueOnError)
+	fs.Usage = func() {}
+
 	for _, plugin := range b.buildPlugins {
 		fp, ok := plugin.(core.FlagParser)
 		if !ok {

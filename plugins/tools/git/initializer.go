@@ -2,12 +2,20 @@ package git
 
 import (
 	"context"
+	"embed"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	"github.com/spf13/pflag"
+
+	"github.com/wawandco/ox/internal/source"
 	"github.com/wawandco/ox/plugins/base/new"
+)
+
+var (
+	//go:embed templates
+	templates embed.FS
 )
 
 // Initializer
@@ -35,6 +43,25 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 		}
 
 		return err
+	}
+
+	files := []struct {
+		path     string
+		template string
+	}{
+		{filepath.Join(options.Folder, ".gitignore"), "templates/dot-gitignore.tmpl"},
+	}
+
+	for _, f := range files {
+		content, err := templates.ReadFile(f.template)
+		if err != nil {
+			return err
+		}
+
+		err = source.Build(f.path, string(content), nil)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
