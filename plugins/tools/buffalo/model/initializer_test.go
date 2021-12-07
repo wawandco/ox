@@ -57,7 +57,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("should have created the file")
 		}
 
-		if !bytes.Contains(bmodelst, []byte(`github.com/gobuffalo/suite/v3`)) {
+		if !bytes.Contains(bmodelst, []byte(`github.com/gobuffalo/suite/v4`)) {
 			t.Fatal("models should contain suite import")
 		}
 

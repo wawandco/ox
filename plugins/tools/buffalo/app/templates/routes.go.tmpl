@@ -1,6 +1,8 @@
 package app
 
 import (
+	"net/http"
+
 	base "{{.Module}}"
 	"{{.Module}}/app/actions/home"
 	"{{.Module}}/app/middleware"
@@ -15,5 +17,5 @@ func setRoutes(root *buffalo.App) {
 	root.Use(middleware.CSRF)
 
 	root.GET("/", home.Index)
-	root.ServeFiles("/", base.Assets)
+	root.ServeFiles("/", http.FS(base.Assets))
 }

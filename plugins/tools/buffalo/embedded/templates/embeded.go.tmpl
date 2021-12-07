@@ -8,12 +8,12 @@ import (
 
 var (
 	//go:embed app/templates public migrations config
-	fs embed.FS
+	embedded embed.FS
 
 	// FS used by the app, these are based on the embed.FS declared
 	// in the fs variable.
-	Assets     = buffalo.FS(fs, "public")
-	Templates  = buffalo.FS(fs, "app/templates")
-	Migrations = buffalo.FS(fs, "migrations")
-	Config     = buffalo.FS(fs, "config")
+	Assets     = buffalo.NewFS(embedded, "public")
+	Templates  = buffalo.NewFS(embedded, "app/templates")
+	Migrations = buffalo.NewFS(embedded, "migrations")
+	Config     = buffalo.NewFS(embedded, "config")
 )
