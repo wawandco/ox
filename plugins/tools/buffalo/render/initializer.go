@@ -33,6 +33,17 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 
 	filename := filepath.Join(options.Folder, "app", "render", "render.go")
 	err = source.Build(filename, string(renderGo), options.Module)
+	if err != nil {
+		return err
+	}
+
+	renderGo, err = templates.ReadFile("templates/partialfeeder.go.tmpl")
+	if err != nil {
+		return err
+	}
+
+	filename = filepath.Join(options.Folder, "app", "render", "partialfeeder.go")
+	err = source.Build(filename, string(renderGo), options.Module)
 
 	return err
 }

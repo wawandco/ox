@@ -47,8 +47,12 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("models should contain package decl")
 		}
 
-		if !bytes.Contains(bmodels, []byte(`paganotoni/fsbox`)) {
-			t.Fatal("models should fsbox import")
+		if bytes.Contains(bmodels, []byte(`paganotoni/fsbox`)) {
+			t.Fatal("models should not fsbox import")
+		}
+
+		if !bytes.Contains(bmodels, []byte(`gobuffalo/buffalo`)) {
+			t.Fatal("models should not buffalo import")
 		}
 	})
 }

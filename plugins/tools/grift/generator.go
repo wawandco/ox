@@ -3,11 +3,11 @@ package grift
 import (
 	"context"
 	_ "embed"
+	"fmt"
 	"os"
 	"path/filepath"
 
 	"github.com/gobuffalo/flect"
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/log"
 	"github.com/wawandco/ox/internal/source"
 )
@@ -36,7 +36,7 @@ func (g Generator) InvocationName() string {
 
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate task [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate task [name]`")
 	}
 
 	dirPath := filepath.Join(root, "app", "tasks")
@@ -52,11 +52,11 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 	g.dir = dirPath
 
 	if g.exists(filepath.Join(g.dir, g.filename+".go")) {
-		return errors.Errorf("Task file already exists")
+		return fmt.Errorf("Task file already exists")
 	}
 
 	if err := g.createTaskFile(args); err != nil {
-		return errors.Wrap(err, "creating action file")
+		return fmt.Errorf("creating action file: %w", err)
 	}
 
 	log.Infof("task generated in: \n-- app/tasks/%s.go\n", g.name)
@@ -67,8 +67,11 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 func (g Generator) createTaskFile(args []string) error {
 	path := filepath.Join(g.dir, g.filename+".go")
 	err := source.Build(path, taskTemplate, g.name)
+	if err != nil {
+		return fmt.Errorf("parsing new template error: %w", err)
+	}
 
-	return errors.Wrap(err, "parsing new template error")
+	return nil
 }
 
 func (g Generator) exists(path string) bool {

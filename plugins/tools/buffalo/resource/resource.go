@@ -2,11 +2,11 @@ package resource
 
 import (
 	_ "embed"
+	"fmt"
 	"os"
 	"path/filepath"
 
 	"github.com/gobuffalo/flect/name"
-	"github.com/pkg/errors"
 
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/source"
@@ -103,7 +103,7 @@ func (r *Resource) GenerateMigrations() error {
 	creator := fizz.Creator{}
 
 	if err := creator.Create(migrationPath, r.originalName, r.originalArgs); err != nil {
-		return errors.Wrap(err, "failed creating migrations")
+		return fmt.Errorf("failed creating migrations: %w", err)
 	}
 
 	return nil
@@ -112,7 +112,7 @@ func (r *Resource) GenerateMigrations() error {
 // GenerateModel generates the model for the resource
 func (r *Resource) GenerateModel() error {
 	if err := r.Model.Create(); err != nil {
-		return errors.Wrap(err, "error creating model")
+		return fmt.Errorf("error creating model: %w", err)
 	}
 
 	return nil

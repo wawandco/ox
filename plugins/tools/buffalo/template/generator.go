@@ -2,11 +2,13 @@ package template
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/pkg/errors"
+	"errors"
+
 	"github.com/wawandco/ox/internal/log"
 )
 
@@ -27,7 +29,7 @@ func (g Generator) InvocationName() string {
 // Generate generates an empty [name].plush.html file
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate template [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate template [name]`")
 	}
 
 	if err := g.generateTemplate(root, args[2]); err != nil {
@@ -43,21 +45,21 @@ func (g Generator) generateTemplate(root, filename string) error {
 	dirpath := filepath.Join(root, "app", "templates")
 
 	if !g.exists(dirpath) {
-		return errors.Errorf("folder '%s' do not exists on your buffalo app, please ensure the folder exists in order to proceed", dirpath)
+		return fmt.Errorf("folder '%s' do not exists on your buffalo app, please ensure the folder exists in order to proceed", dirpath)
 	}
 
 	tmpl := g.generateFilePath(dirpath, filename)
 	if g.exists(tmpl) {
-		return errors.Errorf("template already exists")
+		return errors.New("template already exists")
 	}
 
 	if err := os.MkdirAll(filepath.Dir(tmpl), 0755); err != nil {
-		return errors.Wrap(err, "error creating subfolders")
+		return fmt.Errorf("error creating subfolders: %w", err)
 	}
 
 	file, err := os.Create(tmpl)
 	if err != nil {
-		return errors.Wrap(err, "error creating file")
+		return fmt.Errorf("error creating file: %w", err)
 	}
 
 	defer file.Close()

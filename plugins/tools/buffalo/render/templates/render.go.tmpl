@@ -11,8 +11,8 @@ import (
 // while also defining thing like the base layout.
 var Engine = render.New(render.Options{
 	HTMLLayout:   "application.plush.html",
-	TemplatesBox: base.Templates,
-	AssetsBox:    base.Assets,
+	TemplatesFS:  base.Templates,
+	AssetsFS:     base.Assets,
 	Helpers:      Helpers,
 })
 
@@ -22,5 +22,9 @@ var Engine = render.New(render.Options{
 var Helpers = map[string]interface{}{
 	// partialFeeder is the helper used by the render engine
 	// to find the partials that will be used, this is important
-	"partialFeeder": base.Templates.FindString,
+	"partialFeeder": partialFeeder,
+}
+
+func partialFeeder(name string) (string, error) {
+	return "", nil
 }

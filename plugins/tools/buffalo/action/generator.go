@@ -2,12 +2,14 @@ package action
 
 import (
 	"context"
+	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
 
+	"errors"
+
 	"github.com/gobuffalo/flect"
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/source"
 )
 
@@ -30,7 +32,7 @@ func (g Generator) InvocationName() string {
 
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate action [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate action [name]`")
 	}
 
 	dirPath := filepath.Join(root, "app", "actions")
@@ -46,7 +48,7 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 	g.dir = dirPath
 
 	if g.exists(filepath.Join(g.dir, g.filename+".go")) {
-		return errors.Errorf("action file already exists")
+		return errors.New("action file already exists")
 	}
 
 	if err := g.generateActionFiles(args[3:]); err != nil {
@@ -58,11 +60,11 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 
 func (g Generator) generateActionFiles(args []string) error {
 	if err := g.createActionFile(args); err != nil {
-		return errors.Wrap(err, "creating action file")
+		return fmt.Errorf("creating action file: %w", err)
 	}
 
 	if err := g.createActionTestFile(); err != nil {
-		return errors.Wrap(err, "creating action test file")
+		return fmt.Errorf("creating action test file: %w", err)
 	}
 
 	return nil
@@ -77,12 +79,12 @@ func (g Generator) createActionFile(args []string) error {
 	}
 	actionTemplate, err := g.callTemplate("action.go.tmpl")
 	if err != nil {
-		return errors.Wrap(err, "error calling template")
+		return fmt.Errorf("error calling template: %w", err)
 	}
 
 	err = source.Build(path, actionTemplate, data)
 	if err != nil {
-		return errors.Wrap(err, "error generating action")
+		return fmt.Errorf("error generating action: %w", err)
 	}
 
 	return nil
@@ -98,12 +100,12 @@ func (g Generator) createActionTestFile() error {
 
 	actionTestTemplate, err := g.callTemplate("action_test.go.tmpl")
 	if err != nil {
-		return errors.Wrap(err, "error calling template")
+		return fmt.Errorf("error calling template: %w", err)
 	}
 
 	err = source.Build(path, actionTestTemplate, data)
 	if err != nil {
-		return errors.Wrap(err, "error generating action")
+		return fmt.Errorf("error generating action: %w", err)
 	}
 
 	return nil

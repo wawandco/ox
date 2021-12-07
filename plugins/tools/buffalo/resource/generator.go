@@ -2,8 +2,8 @@ package resource
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/log"
 )
 
@@ -34,7 +34,7 @@ func (g Generator) InvocationName() string {
 // migrations/[name].down.fizz
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate resource [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate resource [name]`")
 	}
 
 	resource := New(root, args[2:])
@@ -42,25 +42,25 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 	// Generating Templates
 	log.Info("Generating Actions...\n")
 	if err := resource.GenerateActions(); err != nil {
-		return errors.Wrap(err, "generating actions error")
+		return fmt.Errorf("generating actions error: %w", err)
 	}
 
 	// Generating Templates
 	log.Info("Generating Templates...\n")
 	if err := resource.GenerateTemplates(); err != nil {
-		return errors.Wrap(err, "generating templates error")
+		return fmt.Errorf("generating templates error: %w", err)
 	}
 
 	// Generating Model
 	log.Info("Generating Model...\n")
 	if err := resource.GenerateModel(); err != nil {
-		return errors.Wrap(err, "generating model error")
+		return fmt.Errorf("generating model error: %w", err)
 	}
 
 	// // Generating Migration
 	log.Info("Generating Migrations...\n")
 	if err := resource.GenerateMigrations(); err != nil {
-		return errors.Wrap(err, "generating migrations error")
+		return fmt.Errorf("generating migrations error: %w", err)
 	}
 
 	log.Infof("%s resource has been generated successfully \n", resource.originalName)

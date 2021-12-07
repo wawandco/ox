@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/pkg/errors"
+	"errors"
 )
 
 var ErrInvalidRenamer error = errors.New("invalid renamer, please write a valid argument")
