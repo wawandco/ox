@@ -1,4 +1,5 @@
 //go:build sqlite
+// +build sqlite
 
 package middleware_test
 
