@@ -3,17 +3,17 @@ package {{.}}
 import (
 	"embed"
 
-	"github.com/paganotoni/fsbox"
+	"github.com/gobuffalo/buffalo"
 )
 
 var (
 	//go:embed app/templates public migrations config
 	fs embed.FS
 
-	// Boxes used by the app, these are based on the embed.FS declared
+	// FS used by the app, these are based on the embed.FS declared
 	// in the fs variable.
-	Assets     = fsbox.New(fs, "public")
-	Templates  = fsbox.New(fs, "app/templates")
-	Migrations = fsbox.New(fs, "migrations")
-	Config     	= fsbox.New(fs, "config")
+	Assets     = buffalo.FS(fs, "public")
+	Templates  = buffalo.FS(fs, "app/templates")
+	Migrations = buffalo.FS(fs, "migrations")
+	Config     = buffalo.FS(fs, "config")
 )

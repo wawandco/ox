@@ -1,3 +1,5 @@
+//go:build sqlite
+
 package middleware_test
 
 import (

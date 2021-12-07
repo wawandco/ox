@@ -1,0 +1,23 @@
+package render
+
+import (
+	"io"
+
+	base "{{.}}"
+)
+
+// partialFeeder looks up for template files in the templates box
+// and returns its contents as string.
+func partialFeeder(name string) (string, error) {
+	f, err := base.Templates.Open(name)
+	if err != nil {
+		return "", err
+	}
+
+	b, err := io.ReadAll(f)
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
+}
