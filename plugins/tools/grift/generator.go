@@ -67,8 +67,11 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 func (g Generator) createTaskFile(args []string) error {
 	path := filepath.Join(g.dir, g.filename+".go")
 	err := source.Build(path, taskTemplate, g.name)
+	if err != nil {
+		return fmt.Errorf("parsing new template error: %w", err)
+	}
 
-	return fmt.Errorf("parsing new template error: %w", err)
+	return nil
 }
 
 func (g Generator) exists(path string) bool {

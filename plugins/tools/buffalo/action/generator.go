@@ -32,7 +32,7 @@ func (g Generator) InvocationName() string {
 
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate action [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate action [name]`")
 	}
 
 	dirPath := filepath.Join(root, "app", "actions")
