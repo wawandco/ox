@@ -5,13 +5,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/wawandco/ox/internal/runtime"
 	"github.com/wawandco/ox/plugins/base/content"
 	"github.com/wawandco/ox/plugins/core"
-)
-
-var (
-	// The version of the CLI
-	version = "v0.12.0-beta.2"
 )
 
 var (
@@ -41,7 +37,7 @@ func (b Command) HelpText() string {
 // Run prints the version of the ox cli
 func (b *Command) Run(ctx context.Context, root string, args []string) error {
 	fmt.Println(content.Banner)
-	fmt.Printf("Version %v\n", version)
+	fmt.Printf("Version %v\n", runtime.Version)
 
 	return nil
 }
