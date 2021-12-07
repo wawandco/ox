@@ -2,11 +2,13 @@ package model
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 
+	"errors"
+
 	"github.com/gobuffalo/flect"
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/log"
 )
 
@@ -32,7 +34,7 @@ func (g Generator) InvocationName() string {
 // Generate generates an empty [name].plush.html file
 func (g Generator) Generate(ctx context.Context, root string, args []string) error {
 	if len(args) < 3 {
-		return errors.Errorf("no name specified, please use `ox generate model [name]`")
+		return fmt.Errorf("no name specified, please use `ox generate model [name]`")
 	}
 
 	dirPath := filepath.Join(root, "app", "models")
@@ -48,7 +50,7 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 
 	model := New(dirPath, args[2], args[3:])
 	if err := model.Create(); err != nil {
-		return errors.Wrap(err, "creating models error")
+		return fmt.Errorf("creating models error: %w", err)
 	}
 
 	log.Infof("Model generated in: \n-- app/models/%s.go\n-- app/models/%s_test.go\n", filename, filename)

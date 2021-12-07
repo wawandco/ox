@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/log"
 )
 
@@ -46,7 +45,7 @@ func (s Creator) createFile(dir, name, runFlag string) error {
 	fileName := fmt.Sprintf("%s.%s.sql", name, runFlag)
 	file, err := os.Create(filepath.Join(dir, fileName))
 	if err != nil {
-		return errors.Wrap(err, "error creating file")
+		return fmt.Errorf("error creating file: %w", err)
 	}
 
 	defer file.Close()

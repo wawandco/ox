@@ -20,7 +20,7 @@ func buildImports(attrs []attr) []string {
 				imps["github.com/gobuffalo/nulls"] = true
 			}
 			if strings.HasPrefix(a.GoType(), "slices") {
-				imps["github.com/gobuffalo/pop/v5/slices"] = true
+				imps["github.com/gobuffalo/pop/v6/slices"] = true
 			}
 		}
 	}

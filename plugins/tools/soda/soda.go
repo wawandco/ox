@@ -1,11 +1,12 @@
 package soda
 
 import (
-	"github.com/gobuffalo/packd"
+	"io/fs"
+
 	"github.com/wawandco/ox/plugins/core"
 )
 
-func Plugins(migrations packd.Box) []core.Plugin {
+func Plugins(migrations fs.FS) []core.Plugin {
 	pl := []core.Plugin{
 		&Command{migrations: migrations},
 	}

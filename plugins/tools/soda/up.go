@@ -3,7 +3,7 @@ package soda
 import (
 	"context"
 
-	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v6"
 )
 
 // Run will run migrations on the current folder, it will look for the

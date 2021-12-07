@@ -1,7 +1,7 @@
 package soda
 
 import (
-	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v6"
 )
 
 // RunDown will run migrations on the current folder, it will look for the

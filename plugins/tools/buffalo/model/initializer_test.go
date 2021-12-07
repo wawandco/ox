@@ -48,7 +48,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("should have created the file")
 		}
 
-		if !bytes.Contains(bmodels, []byte(`github.com/gobuffalo/pop/v5`)) {
+		if !bytes.Contains(bmodels, []byte(`github.com/gobuffalo/pop/v6`)) {
 			t.Fatal("models should contain pop import")
 		}
 

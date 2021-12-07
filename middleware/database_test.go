@@ -1,4 +1,4 @@
-package middleware
+package middleware_test
 
 import (
 	"net/http"
@@ -7,7 +7,8 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/httptest"
-	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v6"
+	"github.com/wawandco/ox/middleware"
 )
 
 var deets = []*pop.ConnectionDetails{
@@ -58,7 +59,7 @@ func TestDatabase(t *testing.T) {
 			return nil
 		}
 
-		app.Use(Database(nil, nil))
+		app.Use(middleware.Database(nil, nil))
 		app.GET("/", hnd)
 		app.POST("/", hnd)
 
@@ -77,7 +78,7 @@ func TestDatabase(t *testing.T) {
 	t.Run("With one connection", func(t *testing.T) {
 		app := buffalo.New(buffalo.Options{})
 		app.Middleware.Clear()
-		app.Use(Database(conns["tx.db"], nil))
+		app.Use(middleware.Database(conns["tx.db"], nil))
 
 		var conn *pop.Connection
 		hnd := func(c buffalo.Context) error {
@@ -115,7 +116,7 @@ func TestDatabase(t *testing.T) {
 
 		app := buffalo.New(buffalo.Options{})
 		app.Middleware.Clear()
-		app.Use(Database(conns["tx.db"], conns["rodb.db"]))
+		app.Use(middleware.Database(conns["tx.db"], conns["rodb.db"]))
 
 		var conn *pop.Connection
 		hnd := func(c buffalo.Context) error {

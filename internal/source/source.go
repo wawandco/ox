@@ -2,13 +2,13 @@ package source
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"text/template"
 
 	"github.com/gobuffalo/flect"
-	"github.com/pkg/errors"
 	"github.com/wawandco/ox/internal/log"
 )
 
@@ -50,18 +50,18 @@ func Build(filename, source string, data interface{}) error {
 	tmpl := template.New(filename).Funcs(helpers)
 	tmpl, err = tmpl.Parse(source)
 	if err != nil {
-		return errors.Wrap(err, "error intializing template")
+		return fmt.Errorf("error intializing template: %w", err)
 	}
 
 	sbf := bytes.NewBuffer([]byte{})
 	err = tmpl.Execute(sbf, data)
 	if err != nil {
-		return errors.Wrap(err, "error executing template")
+		return fmt.Errorf("error executing template: %w", err)
 	}
 
 	err = ioutil.WriteFile(filename, sbf.Bytes(), 0777)
 	if err != nil {
-		return errors.Wrap(err, "error writing file")
+		return fmt.Errorf("error writing file: %w", err)
 	}
 
 	log.Infof("generated %v", filename)

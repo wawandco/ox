@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v6"
 	"github.com/spf13/pflag"
 	"github.com/wawandco/ox/internal/log"
 )

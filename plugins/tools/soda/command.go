@@ -3,8 +3,8 @@ package soda
 import (
 	"context"
 	"errors"
+	"io/fs"
 
-	"github.com/gobuffalo/packd"
 	"github.com/spf13/pflag"
 	"github.com/wawandco/ox/plugins/core"
 )
@@ -22,7 +22,7 @@ type Command struct {
 
 	steps          int
 	connectionName string
-	migrations     packd.Box
+	migrations     fs.FS
 
 	flags *pflag.FlagSet
 }
