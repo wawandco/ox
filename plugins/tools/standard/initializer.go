@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"path/filepath"
 
+	"github.com/wawandco/ox/internal/runtime"
 	"github.com/wawandco/ox/internal/source"
 	"github.com/wawandco/ox/plugins/base/new"
 )
@@ -22,6 +23,14 @@ func (i Initializer) Name() string {
 
 // Initialize the go module
 func (i *Initializer) Initialize(ctx context.Context, options new.Options) error {
-	err := source.Build(filepath.Join(options.Folder, "go.mod"), goModTemplate, options.Module)
+	opts := struct {
+		OxVersion  string
+		ModuleName string
+	}{
+		OxVersion:  runtime.Version,
+		ModuleName: options.Module,
+	}
+
+	err := source.Build(filepath.Join(options.Folder, "go.mod"), goModTemplate, opts)
 	return err
 }
