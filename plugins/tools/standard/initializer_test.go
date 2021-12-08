@@ -19,22 +19,11 @@ func TestInitializer(t *testing.T) {
 	if ini.Name() != "standard/initializer" {
 		t.Errorf("Expected 'standard/initializer' got '%s'", ini.Name())
 	}
-	wd, err := os.Getwd()
-	if err != nil {
-		t.Fatal("Could not get working directory")
-	}
 
-	err = os.Chdir(t.TempDir())
+	err := os.Chdir(t.TempDir())
 	if err != nil {
 		t.Fatalf("could not change to temp dir: %s", err)
 	}
-
-	t.Cleanup(func() {
-		err := os.Chdir(wd)
-		if err != nil {
-			t.Fatalf("could not change back to working directory: %s", err)
-		}
-	})
 
 	err = ini.Initialize(context.Background(), new.Options{
 		Name:   "test",
