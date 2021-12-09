@@ -72,7 +72,7 @@ func Database(db, rodb *pop.Connection) buffalo.MiddlewareFunc {
 				// * yourError - an error returned from your application, middleware, etc...
 				// * a database error - this is returned if there were problems committing the transaction
 				// * a errNonSuccess - this is returned if the response status code is not between 200..399
-				if couldBeDBorYourErr != nil && !errors.Is(couldBeDBorYourErr, errNonSuccess) {
+				if couldBeDBorYourErr != nil && errors.Unwrap(couldBeDBorYourErr) != errNonSuccess {
 					return couldBeDBorYourErr
 				}
 
