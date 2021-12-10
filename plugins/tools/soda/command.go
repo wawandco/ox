@@ -68,3 +68,9 @@ func (m *Command) ParseFlags(args []string) {
 func (m *Command) Flags() *pflag.FlagSet {
 	return m.flags
 }
+
+func NewCommand(folder fs.FS) *Command {
+	return &Command{
+		migrations: folder,
+	}
+}
