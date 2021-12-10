@@ -1,4 +1,4 @@
-package middleware
+package buffalotools
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ import (
 
 var errNonSuccess = errors.New("non success status code")
 
-// Database returns a database connection provider middleware
+// DatabaseMiddleware returns a database connection provider middleware
 // that will add the db into the `tx` context variable, in case its a
 // PUT/POST/DELETE/PATCH method, it will wrap the
 // handler in a transaction, otherwise it will just
@@ -19,7 +19,7 @@ var errNonSuccess = errors.New("non success status code")
 //
 // Provided middleware can also consider a seccond read only replica
 // database connection (rodb) that will be used on idempotent operations if present.
-func Database(db, rodb *pop.Connection) buffalo.MiddlewareFunc {
+func DatabaseMiddleware(db, rodb *pop.Connection) buffalo.MiddlewareFunc {
 	return func(h buffalo.Handler) buffalo.Handler {
 		return func(c buffalo.Context) error {
 

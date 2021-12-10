@@ -4,6 +4,7 @@ import (
 	base "{{.}}"
 
 	"github.com/gobuffalo/buffalo/render"
+	"github.com/wawandco/ox/pkg/buffalotools"
 )
 
 // Engine for rendering across the app, it provides
@@ -22,5 +23,5 @@ var Engine = render.New(render.Options{
 var Helpers = map[string]interface{}{
 	// partialFeeder is the helper used by the render engine
 	// to find the partials that will be used, this is important
-	"partialFeeder": partialFeeder,
+	"partialFeeder": buffalotools.NewPartialFeeder(base.Templates),
 }

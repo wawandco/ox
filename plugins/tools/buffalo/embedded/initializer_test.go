@@ -38,13 +38,13 @@ func TestInitializer(t *testing.T) {
 			t.Fatalf("error should be nil, got %v", err)
 		}
 
-		bmodels, err := ioutil.ReadFile(filepath.Join(root, "myapp", "embed.go"))
+		bmodels, err := ioutil.ReadFile(filepath.Join(root, "myapp", "myapp.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}
 
 		if !bytes.Contains(bmodels, []byte(`package myapp`)) {
-			t.Fatal("models should contain package decl")
+			t.Fatal("should contain package decl")
 		}
 
 		if bytes.Contains(bmodels, []byte(`paganotoni/fsbox`)) {
