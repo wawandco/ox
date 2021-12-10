@@ -1,6 +1,8 @@
 package plugins
 
 import (
+	"os"
+
 	"github.com/wawandco/ox/plugins/base"
 	"github.com/wawandco/ox/plugins/tools/buffalo/action"
 	"github.com/wawandco/ox/plugins/tools/buffalo/app"
@@ -92,7 +94,8 @@ var Default = append(base.Plugins,
 	&standard.Tester{},
 	&envy.Tester{},
 
-	// Migration Creators
+	// migrate command
+	soda.NewCommand(os.DirFS("migrations")),
 	&fizz.Creator{},
 	&sql.Creator{},
 )

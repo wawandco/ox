@@ -1,7 +1,7 @@
 //go:build sqlite
 // +build sqlite
 
-package middleware_test
+package buffalotools_test
 
 import (
 	"net/http"
@@ -11,7 +11,7 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/httptest"
 	"github.com/gobuffalo/pop/v6"
-	"github.com/wawandco/ox/middleware"
+	"github.com/wawandco/ox/pkg/buffalotools"
 )
 
 var deets = []*pop.ConnectionDetails{
@@ -62,7 +62,7 @@ func TestDatabase(t *testing.T) {
 			return nil
 		}
 
-		app.Use(middleware.Database(nil, nil))
+		app.Use(buffalotools.DatabaseMiddleware(nil, nil))
 		app.GET("/", hnd)
 		app.POST("/", hnd)
 
@@ -81,7 +81,7 @@ func TestDatabase(t *testing.T) {
 	t.Run("With one connection", func(t *testing.T) {
 		app := buffalo.New(buffalo.Options{})
 		app.Middleware.Clear()
-		app.Use(middleware.Database(conns["tx.db"], nil))
+		app.Use(buffalotools.DatabaseMiddleware(conns["tx.db"], nil))
 
 		var conn *pop.Connection
 		hnd := func(c buffalo.Context) error {
@@ -119,7 +119,7 @@ func TestDatabase(t *testing.T) {
 
 		app := buffalo.New(buffalo.Options{})
 		app.Middleware.Clear()
-		app.Use(middleware.Database(conns["tx.db"], conns["rodb.db"]))
+		app.Use(buffalotools.DatabaseMiddleware(conns["tx.db"], conns["rodb.db"]))
 
 		var conn *pop.Connection
 		hnd := func(c buffalo.Context) error {

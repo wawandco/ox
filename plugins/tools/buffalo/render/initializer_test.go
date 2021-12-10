@@ -48,25 +48,7 @@ func TestInitializer(t *testing.T) {
 			`package render`,
 			`var Engine = render.New(render.Options{`,
 			`var Helpers = map[string]interface{}{`,
-			`"partialFeeder": partialFeeder,`,
-		}
-
-		for _, c := range content {
-			if !bytes.Contains(bm, []byte(c)) {
-				t.Errorf("`%v` does not contain `%v`", path, c)
-			}
-		}
-
-		path = filepath.Join(root, "myapp", "app", "render", "partialfeeder.go")
-		bm, err = ioutil.ReadFile(path)
-		if err != nil {
-			t.Fatal("should have created the file")
-		}
-
-		content = []string{
-			`package render`,
-			`base "oosss/myapp"`,
-			`func partialFeeder(`,
+			`"partialFeeder": buffalotools.NewPartialFeeder(base.Templates),`,
 		}
 
 		for _, c := range content {

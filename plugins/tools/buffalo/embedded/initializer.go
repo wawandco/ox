@@ -28,6 +28,6 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 		return err
 	}
 
-	err = source.Build(filepath.Join(options.Folder, "embed.go"), string(content), options.Name)
+	err = source.Build(filepath.Join(options.Folder, options.Name+".go"), string(content), options.Name)
 	return err
 }

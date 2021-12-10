@@ -2,7 +2,6 @@
 .DS_Store
 doc
 tmp
-pkg
 *.pid
 coverage
 coverage.data
