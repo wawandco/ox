@@ -12,6 +12,7 @@ import (
 
 // SetRoutes for the application
 func setRoutes(root *buffalo.App) {
+	root.Use(middleware.RequestID)
 	root.Use(middleware.Database)
 	root.Use(middleware.ParameterLogger)
 	root.Use(middleware.CSRF)
