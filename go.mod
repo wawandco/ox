@@ -10,6 +10,7 @@ require (
 	github.com/gobuffalo/flect v0.2.4
 	github.com/gobuffalo/httptest v1.5.1
 	github.com/gobuffalo/pop/v6 v6.0.1
+	github.com/gofrs/uuid v4.1.0+incompatible
 	github.com/markbates/grift v1.5.0
 	github.com/markbates/refresh v1.12.0
 	github.com/spf13/pflag v1.0.5
