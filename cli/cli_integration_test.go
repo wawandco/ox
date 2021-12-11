@@ -48,7 +48,8 @@ func TestFixCommand(t *testing.T) {
 		os.Chdir(wd)
 	})
 
-	err = os.Chdir(t.TempDir())
+	dir := t.TempDir()
+	err = os.Chdir(dir)
 	if err != nil {
 		t.Fatalf("error moving to tempdir")
 	}
@@ -77,19 +78,18 @@ func TestFixCommand(t *testing.T) {
 		t.Fatalf("error fixing app: %v", err)
 	}
 
-	files := [][]string{
-		{dir, "coke"},
-		{dir, "coke", "go.mod"},
-		{dir, "coke", "coke.go"},
+	files := []string{
+		filepath.Join(dir, "cocacola", "public", "public.go"),
+		filepath.Join(dir, "cocacola", "app", "templates", "templates.go"),
+		filepath.Join(dir, "cocacola", "migrations", "migrations.go"),
 	}
 
 	for _, f := range files {
-		file := filepath.Join(f...)
-		if _, err := os.Stat(file); err == nil {
+		if _, err := os.Stat(f); err == nil {
 			continue
 		}
 
-		t.Fatalf("did not find: %v", file)
+		t.Fatalf("did not find: %v", f)
 	}
 
 }
