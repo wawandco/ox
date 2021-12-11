@@ -22,6 +22,7 @@ import (
 	"github.com/wawandco/ox/plugins/tools/git"
 	"github.com/wawandco/ox/plugins/tools/grift"
 	"github.com/wawandco/ox/plugins/tools/node"
+	"github.com/wawandco/ox/plugins/tools/npm"
 	"github.com/wawandco/ox/plugins/tools/ox"
 	"github.com/wawandco/ox/plugins/tools/refresh"
 	"github.com/wawandco/ox/plugins/tools/soda"
@@ -39,6 +40,7 @@ var Default = append(base.Plugins,
 	&webpack.Plugin{},
 	&refresh.Plugin{},
 	&yarn.Plugin{},
+	&npm.Plugin{},
 	&envy.Developer{},
 	&db.CreateCommand{},
 	&db.DropCommand{},
@@ -104,6 +106,7 @@ var Default = append(base.Plugins,
 	&standard.GetBuffalo{},
 	&standard.ModTidy{},
 	&yarn.AfterInitializer{},
+	&npm.AfterInitializer{},
 	&git.AfterInitializer{},
 
 	// Testers
