@@ -19,7 +19,7 @@ func (rf RenderFixer) Name() string {
 
 func (rf RenderFixer) Fix(ctx context.Context, root string, args []string) error {
 	folder := filepath.Join(root, "app", "render")
-	err := filepath.Walk(folder, func(path string, ii os.FileInfo, err error) error {
+	err := filepath.Walk(folder, func(path string, ii os.FileInfo, _ error) error {
 
 		if ii.IsDir() {
 			return nil

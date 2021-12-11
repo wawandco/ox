@@ -16,7 +16,7 @@ func (ef ReplaceImportsFixer) Name() string {
 }
 
 func (ef ReplaceImportsFixer) Fix(ctx context.Context, root string, args []string) error {
-	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(root, func(path string, info os.FileInfo, _ error) error {
 		if info.IsDir() || filepath.Ext(info.Name()) != ".go" {
 			return nil
 		}

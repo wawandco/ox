@@ -21,7 +21,7 @@ func (rf expressionsFixer) Name() string {
 }
 
 func (rf expressionsFixer) Fix(ctx context.Context, root string, args []string) error {
-	err := filepath.Walk(root, func(path string, ii os.FileInfo, err error) error {
+	err := filepath.Walk(root, func(path string, ii os.FileInfo, _ error) error {
 		if ii.IsDir() || filepath.Ext(path) != ".go" {
 			return nil
 		}

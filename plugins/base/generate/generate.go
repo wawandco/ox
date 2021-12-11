@@ -64,10 +64,14 @@ func (c *Command) Run(ctx context.Context, root string, args []string) error {
 	}
 
 	err := generator.Generate(ctx, root, args)
+	if err != nil {
+		return err
+	}
+
 	for _, ag := range c.aftergenerators {
-		aerr := ag.AfterGenerate(ctx, root, args)
-		if aerr != nil {
-			log.Errorf("Error running after generator %v: %v", ag.Name(), aerr)
+		err := ag.AfterGenerate(ctx, root, args)
+		if err != nil {
+			log.Errorf("Error running after generator %v: %v", ag.Name(), err)
 		}
 	}
 
