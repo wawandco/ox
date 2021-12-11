@@ -11,7 +11,7 @@ import (
 
 var (
 	//go:embed templates
-	templates embed.FS
+	Templates embed.FS
 )
 
 type Model struct {
@@ -54,7 +54,7 @@ func (m Model) createModelFile() error {
 		Imports:  buildImports(m.Attrs),
 	}
 
-	tmpl, err := templates.ReadFile("templates/newmodel.go.tmpl")
+	tmpl, err := Templates.ReadFile("templates/newmodel.go.tmpl")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func (m Model) createModelTestFile() error {
 		Name:     name.New(m.name),
 	}
 
-	tmpl, err := templates.ReadFile("templates/newmodel_test.go.tmpl")
+	tmpl, err := Templates.ReadFile("templates/newmodel_test.go.tmpl")
 	if err != nil {
 		return err
 	}

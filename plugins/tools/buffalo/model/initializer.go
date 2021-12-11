@@ -17,7 +17,7 @@ func (i Initializer) Name() string {
 }
 
 func (i *Initializer) Initialize(ctx context.Context, options new.Options) error {
-	tmpl, err := templates.ReadFile("templates/models.go.tmpl")
+	tmpl, err := Templates.ReadFile("templates/models.go.tmpl")
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 		return err
 	}
 
-	tmpl, err = templates.ReadFile("templates/models_test.go.tmpl")
+	tmpl, err = Templates.ReadFile("templates/models_test.go.tmpl")
 	if err != nil {
 		return err
 	}

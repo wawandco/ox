@@ -53,7 +53,23 @@ var Default = append(base.Plugins,
 	&standard.Builder{},
 
 	// Fixers
-	&standard.Fixer{},
+	// &standard.Fixer{},
+	&ox.InstallDependenciesFixer{},
+	&ox.RenderFixer{},
+	&ox.EmbedFixer{},
+
+	// Expressions to be replaced
+	ox.NewExpressionsFixer(map[string]string{
+		"middleware.Database(models.DB":           "buffalotools.DatabaseMiddleware(models.DB",
+		"github.com/wawandco/ox/middleware":       "github.com/wawandco/ox/pkg/buffalotools",
+		"app.ServeFiles(\"/\", {{.Name}}.Assets)": "app.ServeFiles(\"/\", http.FS({{.Name}}.Assets))",
+		"app.ServeFiles(\"/\", base.Assets)":      "app.ServeFiles(\"/\", http.FS(base.Assets))",
+	}),
+
+	&ox.ModelsFixer{},
+	&ox.ReplaceImportsFixer{},
+	&ox.ModTidyFixer{},
+	&ox.ImportsFixer{},
 
 	// Generators
 	&ox.Generator{},

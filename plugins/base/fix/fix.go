@@ -5,7 +5,6 @@ package fix
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/wawandco/ox/internal/log"
 	"github.com/wawandco/ox/plugins/core"
@@ -37,7 +36,10 @@ func (c *Command) Run(ctx context.Context, root string, args []string) error {
 
 	//Run each of the fixers registered.
 	for _, fixer := range c.fixers {
-		fmt.Printf("Fixer: %v\n", fixer.Name())
+		err := fixer.Fix(ctx, root, args)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
