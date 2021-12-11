@@ -23,3 +23,7 @@ jobs:
       - name: Test
         run: |
           go test -tags sqlite -cover  ./...    
+      
+      - name: Integration Tests
+        run: |
+          go test -tags "sqlite,integration" -cover  ./... 

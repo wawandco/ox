@@ -2,6 +2,7 @@ package yarn
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 )
@@ -23,6 +24,8 @@ func (p *Plugin) buildCmd(ctx context.Context) *exec.Cmd {
 	if os.IsNotExist(err) {
 		return nil
 	}
+
+	fmt.Println(">> Running yarn install <<<")
 
 	c := exec.CommandContext(ctx, "yarn", "install", "--no-progress")
 	c.Stdin = os.Stdin
