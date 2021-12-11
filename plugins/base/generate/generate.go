@@ -9,6 +9,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/wawandco/ox/internal/log"
+	"github.com/wawandco/ox/internal/source"
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -68,6 +69,16 @@ func (c *Command) Run(ctx context.Context, root string, args []string) error {
 		if aerr != nil {
 			log.Errorf("Error running after generator %v: %v", ag.Name(), aerr)
 		}
+	}
+
+	err = source.RunImports(root)
+	if err != nil {
+		return err
+	}
+
+	err = source.RunModTidy(root)
+	if err != nil {
+		return err
 	}
 
 	return err
