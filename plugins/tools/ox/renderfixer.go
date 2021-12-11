@@ -44,6 +44,10 @@ func (rf RenderFixer) Fix(ctx context.Context, root string, args []string) error
 		cc = strings.ReplaceAll(string(cc), "base.Templates.FindString", "buffalotools.NewPartialFeeder(templates.FS())")
 		cc = strings.ReplaceAll(string(cc), "TemplatesBox:", "TemplatesFS:")
 		cc = strings.ReplaceAll(string(cc), "AssetsBox:", "AssetsFS:")
+		cc = strings.ReplaceAll(string(cc), "base.Templates", "templates.FS()")
+		cc = strings.ReplaceAll(string(cc), "base.Assets", "public.FS()")
+		cc = strings.ReplaceAll(string(cc), name+".Templates", "templates.FS()")
+		cc = strings.ReplaceAll(string(cc), name+".Assets", "public.FS()")
 		err = ioutil.WriteFile(path, []byte(cc), 0644)
 		if err != nil {
 			return err

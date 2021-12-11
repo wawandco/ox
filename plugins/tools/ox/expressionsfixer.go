@@ -11,16 +11,21 @@ import (
 	"github.com/wawandco/ox/internal/info"
 )
 
-// expressionsFixer
-type expressionsFixer struct {
-	expressions map[string]string
+var exps = map[string]string{
+	"middleware.Database(models.DB":        "buffalotools.DatabaseMiddleware(models.DB",
+	"github.com/wawandco/ox/middleware":    "github.com/wawandco/ox/pkg/buffalotools",
+	".ServeFiles(\"/\", {{.Name}}.Assets)": ".ServeFiles(\"/\", http.FS(public.FS()))",
+	".ServeFiles(\"/\", base.Assets)":      ".ServeFiles(\"/\", http.FS(public.FS()))",
 }
 
-func (rf expressionsFixer) Name() string {
+// ExpressionsFixer
+type ExpressionsFixer struct{}
+
+func (rf ExpressionsFixer) Name() string {
 	return "ox/fixer/expressionfixer"
 }
 
-func (rf expressionsFixer) Fix(ctx context.Context, root string, args []string) error {
+func (rf ExpressionsFixer) Fix(ctx context.Context, root string, args []string) error {
 	err := filepath.Walk(root, func(path string, ii os.FileInfo, _ error) error {
 		if ii.IsDir() || filepath.Ext(path) != ".go" {
 			return nil
@@ -37,7 +42,7 @@ func (rf expressionsFixer) Fix(ctx context.Context, root string, args []string) 
 			return err
 		}
 
-		for l, r := range rf.expressions {
+		for l, r := range exps {
 			l = strings.Replace(l, "{{.Name}}", bn, -1)
 			r = strings.Replace(r, "{{.Name}}", bn, -1)
 
@@ -53,8 +58,4 @@ func (rf expressionsFixer) Fix(ctx context.Context, root string, args []string) 
 	})
 
 	return err
-}
-
-func NewExpressionsFixer(expressions map[string]string) *expressionsFixer {
-	return &expressionsFixer{expressions: expressions}
 }
