@@ -39,17 +39,13 @@ func TestNewApp(t *testing.T) {
 }
 
 func TestFixCommand(t *testing.T) {
-	wd, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("error getting wd")
-	}
-
+	wd, _ := os.Getwd()
 	t.Cleanup(func() {
 		os.Chdir(wd)
 	})
 
 	dir := t.TempDir()
-	err = os.Chdir(dir)
+	err := os.Chdir(dir)
 	if err != nil {
 		t.Fatalf("error moving to tempdir")
 	}
@@ -91,5 +87,4 @@ func TestFixCommand(t *testing.T) {
 
 		t.Fatalf("did not find: %v", f)
 	}
-
 }
