@@ -40,8 +40,8 @@ func (rf RenderFixer) Fix(ctx context.Context, root string, args []string) error
 			return err
 		}
 
-		cc := strings.ReplaceAll(string(bc), name+".Templates.FindString", "buffalotools.NewPartialFeeder("+name+".Templates)")
-		cc = strings.ReplaceAll(string(cc), "base.Templates.FindString", "buffalotools.NewPartialFeeder(base.Templates)")
+		cc := strings.ReplaceAll(string(bc), name+".Templates.FindString", "buffalotools.NewPartialFeeder(templates.FS())")
+		cc = strings.ReplaceAll(string(cc), "base.Templates.FindString", "buffalotools.NewPartialFeeder(templates.FS())")
 		cc = strings.ReplaceAll(string(cc), "TemplatesBox:", "TemplatesFS:")
 		cc = strings.ReplaceAll(string(cc), "AssetsBox:", "AssetsFS:")
 		err = ioutil.WriteFile(path, []byte(cc), 0644)

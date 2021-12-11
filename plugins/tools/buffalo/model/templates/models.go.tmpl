@@ -1,8 +1,7 @@
 package models
 
 import (
-	base "{{.}}"
-
+	"{{.}}/config"
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/pop/v6"
 	"github.com/wawandco/ox/pkg/buffalotools"
@@ -10,7 +9,7 @@ import (
 
 var (
 	// DB returns the DB connection for a given connection name
-	db = buffalotools.DatabaseProvider(base.Config)
+	db = buffalotools.DatabaseProvider(config.FS())
 )
 
 // DB returns the DB connection for the current environment.

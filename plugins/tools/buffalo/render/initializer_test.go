@@ -48,7 +48,7 @@ func TestInitializer(t *testing.T) {
 			`package render`,
 			`var Engine = render.New(render.Options{`,
 			`var Helpers = map[string]interface{}{`,
-			`"partialFeeder": buffalotools.NewPartialFeeder(base.Templates),`,
+			`"partialFeeder": buffalotools.NewPartialFeeder(templates.FS()),`,
 		}
 
 		for _, c := range content {

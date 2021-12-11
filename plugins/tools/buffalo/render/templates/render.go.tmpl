@@ -1,8 +1,8 @@
 package render
 
 import (
-	base "{{.}}"
-
+	"{{.}}/app/templates"
+	"{{.}}/public"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/wawandco/ox/pkg/buffalotools"
 )
@@ -12,8 +12,8 @@ import (
 // while also defining thing like the base layout.
 var Engine = render.New(render.Options{
 	HTMLLayout:   "application.plush.html",
-	TemplatesFS:  base.Templates,
-	AssetsFS:     base.Assets,
+	TemplatesFS:  templates.FS(),
+	AssetsFS:     public.FS(),
 	Helpers:      Helpers,
 })
 
@@ -23,5 +23,5 @@ var Engine = render.New(render.Options{
 var Helpers = map[string]interface{}{
 	// partialFeeder is the helper used by the render engine
 	// to find the partials that will be used, this is important
-	"partialFeeder": buffalotools.NewPartialFeeder(base.Templates),
+	"partialFeeder": buffalotools.NewPartialFeeder(templates.FS()),
 }
