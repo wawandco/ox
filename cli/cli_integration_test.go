@@ -4,6 +4,7 @@
 package cli_test
 
 import (
+	"bytes"
 	"context"
 	"os"
 	"os/exec"
@@ -11,80 +12,69 @@ import (
 	"testing"
 
 	"github.com/wawandco/ox/cli"
+	"github.com/wawandco/ox/internal/testhelpers"
 )
 
 func TestNewApp(t *testing.T) {
-	dir := t.TempDir()
-	os.Chdir(dir)
+	t.Run("NewAppOk", func(tt *testing.T) {
+		testhelpers.WithinTempDir(tt, func(t *testing.T, dir string) {
+			err := cli.Run(context.Background(), []string{"ox", "new", "coke", "-f"})
+			if err != nil {
+				t.Fatalf("error running new command: %v", err)
+			}
 
-	err := cli.Run(context.Background(), []string{"ox", "new", "coke"})
-	if err != nil {
-		t.Fatalf("error running new command: %v", err)
-	}
+			specs := testhelpers.FileSpecs{
+				{
+					Path:      filepath.Join(dir, "coke"),
+					Condition: testhelpers.ConditionExists,
+				},
+				{
+					Path:      filepath.Join(dir, "coke", "go.mod"),
+					Condition: testhelpers.ConditionExists,
+				},
+				{
+					Path:      filepath.Join(dir, "coke", "go.sum"),
+					Condition: testhelpers.ConditionExists,
+				},
+			}
 
-	files := [][]string{
-		{dir, "coke"},
-		{dir, "coke", "go.mod"},
-		{dir, "coke", "coke.go"},
-	}
-
-	for _, f := range files {
-		file := filepath.Join(f...)
-		if _, err := os.Stat(file); err == nil {
-			continue
-		}
-
-		t.Fatalf("did not find: %v", file)
-	}
-}
-
-func TestFixCommand(t *testing.T) {
-	wd, _ := os.Getwd()
-	t.Cleanup(func() {
-		os.Chdir(wd)
+			specs.CheckAll(t)
+		})
 	})
 
-	dir := t.TempDir()
-	err := os.Chdir(dir)
-	if err != nil {
-		t.Fatalf("error moving to tempdir")
-	}
+	t.Run("FolderExists", func(tt *testing.T) {
+		testhelpers.WithinTempDir(tt, func(t *testing.T, dir string) {
+			err := os.MkdirAll(filepath.Join(dir, "coke"), 0644)
+			if err != nil {
+				t.Fatalf("error creating folder: %v", err)
+			}
 
-	cmd := exec.Command("go", "install", "github.com/wawandco/ox/cmd/ox@v0.11.4")
+			err = cli.Run(context.Background(), []string{"ox", "new", "coke"})
+			if err == nil {
+				t.Fatalf("expected error running new command with folder existing")
+			}
+		})
+	})
+
+}
+
+func TestNoCommand(t *testing.T) {
+	cmd := exec.Command("go", "install", "github.com/wawandco/ox/cmd/ox")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("error running go install: %v", err)
 	}
 
-	cmd = exec.Command("ox", "new", "cocacola")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
-		t.Fatalf("error running ox new: %v", err)
-	}
-
-	err = os.Chdir("cocacola")
+	cmd = exec.Command("ox")
+	bs, err := cmd.CombinedOutput()
 	if err != nil {
-		t.Fatalf("error moving to the correct directory: %v", err)
+		t.Fatalf("error running ox: %v", err)
 	}
 
-	err = cli.Run(context.Background(), []string{"ox", "fix"})
-	if err != nil {
-		t.Fatalf("error fixing app: %v", err)
-	}
-
-	files := []string{
-		filepath.Join(dir, "cocacola", "public", "public.go"),
-		filepath.Join(dir, "cocacola", "app", "templates", "templates.go"),
-		filepath.Join(dir, "cocacola", "migrations", "migrations.go"),
-	}
-
-	for _, f := range files {
-		if _, err := os.Stat(f); err == nil {
-			continue
-		}
-
-		t.Fatalf("did not find: %v", f)
+	exp := []byte("no command provided, please provide one")
+	if !bytes.Contains(bs, exp) {
+		t.Fatalf("%v does not contain expected output: %v", bs, exp)
 	}
 }

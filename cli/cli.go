@@ -52,20 +52,26 @@ func (c *cli) findCommand(name string) core.Command {
 func (c *cli) Wrap(ctx context.Context, args []string) error {
 	path := filepath.Join("cmd", "ox", "main.go")
 	_, err := os.Stat(path)
-	name := info.ModuleName()
-	if err != nil || name == "" || name == "github.com/wawandco/ox" {
-		log.Info("Using github.com/wawandco/ox/cmd/ox \n")
+
+	if name := info.ModuleName(); err != nil || name == "" || name == "github.com/wawandco/ox" {
 		return c.Run(ctx, args)
 	}
 
-	bargs := []string{"run", path}
-	bargs = append(bargs, args[1:]...)
+	// Fix command should not do the wrapping logic
+	// we need to find a way to make this more generic.
+	if args[1] == "fix" {
+		return c.Run(ctx, args)
+	}
 
 	log.Infof("Using %v \n", path)
-	cmd := exec.CommandContext(ctx, "go", bargs...)
-	cmd.Stdin = os.Stdin
+
+	cmd := exec.CommandContext(ctx, "go", "run")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+
+	args[0] = path
+	cmd.Args = append(cmd.Args, args...)
 
 	return cmd.Run()
 }
@@ -74,6 +80,7 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 	if len(args) < 2 {
 		fmt.Println(content.Banner)
 		log.Error("no command provided, please provide one")
+
 		return nil
 	}
 
