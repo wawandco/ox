@@ -62,7 +62,6 @@ var Default = append(base.Plugins,
 
 	// Expressions to be replaced
 	&ox.ExpressionsFixer{},
-
 	&ox.ModelsFixer{},
 	&ox.ReplaceImportsFixer{},
 	&ox.ModTidyFixer{},
