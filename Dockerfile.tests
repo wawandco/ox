@@ -11,10 +11,10 @@ WORKDIR /ox
 ADD . .
 
 # Building the application binary in bin/app 
-# RUN go build -v ./cmd/ox 
+RUN go build -v ./cmd/ox 
 
 # Running unit tests
-# RUN go test --tags sqlite -v --cover ./...
+RUN go test --tags sqlite -v --cover ./...
 
 # Running integration tests
 RUN go test --tags integration -v --cover ./cli/...
