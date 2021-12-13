@@ -1,4 +1,4 @@
-package ox
+package render
 
 import (
 	"context"
@@ -10,14 +10,14 @@ import (
 	"github.com/wawandco/ox/internal/info"
 )
 
-// RenderFixer
-type RenderFixer struct{}
+// Fixer
+type Fixer struct{}
 
-func (rf RenderFixer) Name() string {
-	return "ox/fixer/embed"
+func (rf Fixer) Name() string {
+	return "render/fixer"
 }
 
-func (rf RenderFixer) Fix(ctx context.Context, root string, args []string) error {
+func (rf Fixer) Fix(ctx context.Context, root string, args []string) error {
 	folder := filepath.Join(root, "app", "render")
 	err := filepath.Walk(folder, func(path string, ii os.FileInfo, _ error) error {
 

@@ -1,4 +1,4 @@
-package ox
+package cmd
 
 import (
 	"context"

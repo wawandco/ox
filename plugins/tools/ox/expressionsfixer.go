@@ -18,11 +18,11 @@ var exps = map[string]string{
 	".ServeFiles(\"/\", base.Assets)":      ".ServeFiles(\"/\", http.FS(public.FS()))",
 }
 
-// ExpressionsFixer
+// ExpressionsFixer for buffalo/ox expressions that may have changed.
 type ExpressionsFixer struct{}
 
 func (rf ExpressionsFixer) Name() string {
-	return "ox/fixer/expressionfixer"
+	return "buffalo/expressionsfixer"
 }
 
 func (rf ExpressionsFixer) Fix(ctx context.Context, root string, args []string) error {

@@ -12,7 +12,7 @@ import (
 type ReplaceImportsFixer struct{}
 
 func (ef ReplaceImportsFixer) Name() string {
-	return "ox/fixer/replaceimports"
+	return "/replaceimports"
 }
 
 func (ef ReplaceImportsFixer) Fix(ctx context.Context, root string, args []string) error {

@@ -1,4 +1,4 @@
-package ox
+package model
 
 import (
 	"context"
@@ -6,18 +6,17 @@ import (
 
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/source"
-	"github.com/wawandco/ox/plugins/tools/buffalo/model"
 )
 
-// ModelsFixer
-type ModelsFixer struct{}
+// Fixer
+type Fixer struct{}
 
-func (ef ModelsFixer) Name() string {
-	return "ox/fixer/models"
+func (ef Fixer) Name() string {
+	return "models/fixer"
 }
 
-func (ef ModelsFixer) Fix(ctx context.Context, root string, args []string) error {
-	tmpl, err := model.Templates.ReadFile("templates/models.go.tmpl")
+func (ef Fixer) Fix(ctx context.Context, root string, args []string) error {
+	tmpl, err := Templates.ReadFile("templates/models.go.tmpl")
 	if err != nil {
 		return err
 	}
