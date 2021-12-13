@@ -20,12 +20,12 @@ func DatabaseProvider(config fs.FS) func(name string) *pop.Connection {
 	// variable for later usage.
 	bf, err := config.Open("database.yml")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("databaseprovider: %v", err)
 	}
 
 	err = pop.LoadFrom(bf)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("databaseprovider: %v", err)
 	}
 
 	return func(name string) *pop.Connection {

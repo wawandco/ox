@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/gobuffalo/pop/v6"
 	"github.com/spf13/pflag"
@@ -49,9 +50,11 @@ func (d *ResetCommand) Run(ctx context.Context, root string, args []string) erro
 // RunBeforeTests will be invoked to reset the test database before
 // tests run.
 func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []string) error {
-	err := pop.LoadConfigFile()
-	if err != nil {
-		return err
+	if len(pop.Connections) == 0 {
+		err := pop.LoadConfigFile()
+		if err != nil {
+			return fmt.Errorf("error on reset.RunBeforeTest: %w", err)
+		}
 	}
 
 	conn := pop.Connections["test"]
@@ -64,7 +67,7 @@ func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []st
 		return errors.New("provided connection is not a Resetter")
 	}
 
-	err = resetter.DropDB()
+	err := resetter.DropDB()
 	if err != nil {
 		log.Warnf("could not drop database: %v\n", err)
 	}
