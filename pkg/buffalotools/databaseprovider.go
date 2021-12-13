@@ -1,7 +1,6 @@
 package buffalotools
 
 import (
-	"fmt"
 	"io/fs"
 	"log"
 
@@ -17,17 +16,6 @@ var (
 // DatabaseProvider returns a function that returns the database connection
 // for the current environment.
 func DatabaseProvider(config fs.FS) func(name string) *pop.Connection {
-
-	fs.WalkDir(config, ".", func(path string, d fs.DirEntry, err error) error {
-		if d.IsDir() {
-			return nil
-		}
-
-		fmt.Println(">> Walk >>", path)
-
-		return nil
-	})
-
 	// Loading connections from database.yml in the pop.Connections
 	// variable for later usage.
 	bf, err := config.Open("database.yml")
@@ -37,7 +25,7 @@ func DatabaseProvider(config fs.FS) func(name string) *pop.Connection {
 
 	err = pop.LoadFrom(bf)
 	if err != nil {
-		log.Fatal("databaseprovider: %v", err)
+		log.Fatalf("databaseprovider: %v", err)
 	}
 
 	return func(name string) *pop.Connection {
