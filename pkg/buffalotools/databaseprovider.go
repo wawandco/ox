@@ -18,9 +18,9 @@ var (
 func DatabaseProvider(config fs.FS) func(name string) *pop.Connection {
 	// Loading connections from database.yml in the pop.Connections
 	// variable for later usage.
-	bf, err := config.Open("database.yml")
+	bf, err := config.Open("config/database.yml")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("error opening config/database.yml on databaseprovider: %v", err)
 	}
 
 	err = pop.LoadFrom(bf)
