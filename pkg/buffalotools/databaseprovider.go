@@ -37,7 +37,7 @@ func DatabaseProvider(config fs.FS) func(name string) *pop.Connection {
 
 	err = pop.LoadFrom(bf)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("databaseprovider: %v", err)
 	}
 
 	return func(name string) *pop.Connection {

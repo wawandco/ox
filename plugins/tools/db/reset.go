@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/gobuffalo/pop/v6"
 	"github.com/spf13/pflag"
@@ -51,7 +52,7 @@ func (d *ResetCommand) Run(ctx context.Context, root string, args []string) erro
 func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []string) error {
 	err := pop.LoadConfigFile()
 	if err != nil {
-		return err
+		return fmt.Errorf("error on reset.RunBeforeTest: %w", err)
 	}
 
 	conn := pop.Connections["test"]
