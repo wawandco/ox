@@ -10,7 +10,7 @@ import (
 
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/source"
-	"github.com/wawandco/ox/plugins/tools/buffalo/model"
+	"github.com/wawandco/ox/plugins/tools/ox/model"
 	"github.com/wawandco/ox/plugins/tools/soda/fizz"
 )
 

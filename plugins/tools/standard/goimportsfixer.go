@@ -1,4 +1,4 @@
-package ox
+package standard
 
 import (
 	"bytes"
@@ -10,14 +10,14 @@ import (
 	"golang.org/x/tools/imports"
 )
 
-// ImportsFixer
-type ImportsFixer struct{}
+// GoImportsFixer runs goimports for the given root directory.
+type GoImportsFixer struct{}
 
-func (ef ImportsFixer) Name() string {
+func (ef GoImportsFixer) Name() string {
 	return "ox/fixer/adjustimports"
 }
 
-func (ef ImportsFixer) Fix(ctx context.Context, root string, args []string) error {
+func (ef GoImportsFixer) Fix(ctx context.Context, root string, args []string) error {
 	err := filepath.Walk(root, func(path string, info os.FileInfo, _ error) error {
 		if info.IsDir() || filepath.Ext(info.Name()) != ".go" {
 			return nil

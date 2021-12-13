@@ -4,17 +4,6 @@ import (
 	"os"
 
 	"github.com/wawandco/ox/plugins/base"
-	"github.com/wawandco/ox/plugins/tools/buffalo/action"
-	"github.com/wawandco/ox/plugins/tools/buffalo/app"
-	"github.com/wawandco/ox/plugins/tools/buffalo/assets"
-	"github.com/wawandco/ox/plugins/tools/buffalo/cmd"
-	"github.com/wawandco/ox/plugins/tools/buffalo/config"
-	"github.com/wawandco/ox/plugins/tools/buffalo/embedded"
-	"github.com/wawandco/ox/plugins/tools/buffalo/middleware"
-	"github.com/wawandco/ox/plugins/tools/buffalo/model"
-	"github.com/wawandco/ox/plugins/tools/buffalo/render"
-	"github.com/wawandco/ox/plugins/tools/buffalo/resource"
-	"github.com/wawandco/ox/plugins/tools/buffalo/template"
 	"github.com/wawandco/ox/plugins/tools/db"
 	"github.com/wawandco/ox/plugins/tools/docker"
 	"github.com/wawandco/ox/plugins/tools/envy"
@@ -23,7 +12,19 @@ import (
 	"github.com/wawandco/ox/plugins/tools/grift"
 	"github.com/wawandco/ox/plugins/tools/node"
 	"github.com/wawandco/ox/plugins/tools/npm"
+
 	"github.com/wawandco/ox/plugins/tools/ox"
+	"github.com/wawandco/ox/plugins/tools/ox/action"
+	"github.com/wawandco/ox/plugins/tools/ox/app"
+	"github.com/wawandco/ox/plugins/tools/ox/assets"
+	"github.com/wawandco/ox/plugins/tools/ox/cmd"
+	"github.com/wawandco/ox/plugins/tools/ox/config"
+	"github.com/wawandco/ox/plugins/tools/ox/embedded"
+	"github.com/wawandco/ox/plugins/tools/ox/middleware"
+	"github.com/wawandco/ox/plugins/tools/ox/model"
+	"github.com/wawandco/ox/plugins/tools/ox/render"
+	"github.com/wawandco/ox/plugins/tools/ox/resource"
+	"github.com/wawandco/ox/plugins/tools/ox/template"
 	"github.com/wawandco/ox/plugins/tools/refresh"
 	"github.com/wawandco/ox/plugins/tools/soda"
 	"github.com/wawandco/ox/plugins/tools/soda/fizz"
@@ -55,20 +56,19 @@ var Default = append(base.Plugins,
 	&standard.Builder{},
 
 	// Fixers
-	// &standard.Fixer{},
-	&ox.InstallDependenciesFixer{},
-	&ox.RenderFixer{},
-	&ox.EmbedFixer{},
+	&ox.InstallFixer{},
+	&render.Fixer{},
+	&embedded.Fixer{},
 
 	// Expressions to be replaced
 	&ox.ExpressionsFixer{},
-	&ox.ModelsFixer{},
+	&model.Fixer{},
 	&ox.ReplaceImportsFixer{},
-	&ox.ModTidyFixer{},
-	&ox.ImportsFixer{},
+	&standard.GoModTidyFixer{},
+	&standard.GoImportsFixer{},
 
 	// Generators
-	&ox.Generator{},
+	&cmd.Generator{},
 	&template.Generator{},
 	&model.Generator{},
 	&action.Generator{},

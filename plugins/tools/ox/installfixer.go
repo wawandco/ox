@@ -9,15 +9,14 @@ import (
 	"github.com/wawandco/ox/internal/runtime"
 )
 
-// type InstallDependenciesFixer struct{}
+// type InstallFixer
+type InstallFixer struct{}
 
-type InstallDependenciesFixer struct{}
-
-func (ef InstallDependenciesFixer) Name() string {
-	return "ox/fixer/install-dependencies"
+func (ef InstallFixer) Name() string {
+	return "buffalo/installfixer"
 }
 
-func (ef InstallDependenciesFixer) Fix(context.Context, string, []string) error {
+func (ef InstallFixer) Fix(context.Context, string, []string) error {
 	deps := []string{
 		"github.com/gobuffalo/buffalo@v0.18",
 		"github.com/wawandco/ox@" + runtime.Version,

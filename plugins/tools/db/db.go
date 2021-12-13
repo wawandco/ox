@@ -46,9 +46,11 @@ func (c *Command) Run(ctx context.Context, root string, args []string) error {
 		return nil
 	}
 
-	err := pop.LoadConfigFile()
-	if err != nil {
-		log.Error(err.Error())
+	if len(pop.Connections) == 0 {
+		err := pop.LoadConfigFile()
+		if err != nil {
+			log.Errorf("error on db.Run: %v", err.Error())
+		}
 	}
 
 	name := args[1]
