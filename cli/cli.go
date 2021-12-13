@@ -11,7 +11,6 @@ import (
 	"github.com/wawandco/ox/internal/info"
 	"github.com/wawandco/ox/internal/log"
 	"github.com/wawandco/ox/plugins/base/content"
-	"github.com/wawandco/ox/plugins/base/help"
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -152,16 +151,4 @@ func (cl *cli) Remove(names ...string) {
 // Clear the plugin list of the CLI.
 func (cl *cli) Clear() {
 	cl.Plugins = []core.Plugin{}
-}
-
-// New creates a CLI with the passed root and plugins. This becomes handy
-// when specifying your own plugins.
-func New() *cli {
-	log.Warn("cli.New() is deprecated, se with caution.")
-
-	return &cli{
-		Plugins: []core.Plugin{
-			help.Command{},
-		},
-	}
 }
