@@ -50,9 +50,11 @@ func (d *ResetCommand) Run(ctx context.Context, root string, args []string) erro
 // RunBeforeTests will be invoked to reset the test database before
 // tests run.
 func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []string) error {
-	err := pop.LoadConfigFile()
-	if err != nil {
-		return fmt.Errorf("error on reset.RunBeforeTest: %w", err)
+	if len(pop.Connections) == 0 {
+		err := pop.LoadConfigFile()
+		if err != nil {
+			return fmt.Errorf("error on reset.RunBeforeTest: %w", err)
+		}
 	}
 
 	conn := pop.Connections["test"]
