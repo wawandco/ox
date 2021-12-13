@@ -67,7 +67,7 @@ func (d *ResetCommand) RunBeforeTest(ctx context.Context, root string, args []st
 		return errors.New("provided connection is not a Resetter")
 	}
 
-	err = resetter.DropDB()
+	err := resetter.DropDB()
 	if err != nil {
 		log.Warnf("could not drop database: %v\n", err)
 	}
