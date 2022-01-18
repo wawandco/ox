@@ -7,44 +7,65 @@ import (
 
 func Test_CreateDefault_Table(t *testing.T) {
 	ac := createDefault{}
-	t.Run("with table name and no args", func(t *testing.T) {
+	t.Run("with name and no args", func(t *testing.T) {
 		up, down, err := ac.GenerateFizz("create_users", []string{})
 		if err != nil {
 			t.Error("should not be nil but got err")
 		}
 
-		expectedUP := `create_table("")`
-		expectedDown := `drop_table("")`
-
-		if !strings.Contains(up, expectedUP) {
-			t.Errorf("expected %v but got %v", expectedUP, up)
+		upContains := []string{
+			"# You can add your migration from this point. For example:",
+			`# create_table("users") {`,
+			`#   t.Column("id", "uuid", {primary: true})`,
+			`#   t.Column("email", "string", {})`,
 		}
 
-		if down != expectedDown {
-			t.Errorf("expected %v but got %v", expectedDown, down)
+		for _, c := range upContains {
+			if !strings.Contains(up, c) {
+				t.Errorf("expected %v but got %v", c, up)
+			}
+		}
+
+		downContains := []string{
+			"# You can add your migration from this point. For example:",
+			`# drop_table("users")`,
+		}
+
+		for _, c := range downContains {
+			if !strings.Contains(down, c) {
+				t.Errorf("expected %v but got %v", c, down)
+			}
 		}
 	})
 
-	t.Run("with table name and args", func(t *testing.T) {
+	t.Run("with name and args", func(t *testing.T) {
 		up, down, err := ac.GenerateFizz("create_users", []string{"email"})
 		if err != nil {
 			t.Error("should not be nil but got err")
 		}
 
-		expectedUP1 := `create_table("")`
-		expectedUP2 := `t.Column("email", "string", {})`
-		expectedDown := `drop_table("")`
-
-		if !strings.Contains(up, expectedUP1) {
-			t.Errorf("expected %v but got %v", expectedUP1, up)
+		upContains := []string{
+			"# You can add your migration from this point. For example:",
+			`# create_table("users") {`,
+			`#   t.Column("id", "uuid", {primary: true})`,
+			`#   t.Column("email", "string", {})`,
 		}
 
-		if !strings.Contains(up, expectedUP2) {
-			t.Errorf("expected %v but got %v", expectedUP2, up)
+		for _, c := range upContains {
+			if !strings.Contains(up, c) {
+				t.Errorf("expected %v but got %v", c, up)
+			}
 		}
 
-		if down != expectedDown {
-			t.Errorf("expected %v but got %v", expectedDown, down)
+		downContains := []string{
+			"# You can add your migration from this point. For example:",
+			`# drop_table("users")`,
+		}
+
+		for _, c := range downContains {
+			if !strings.Contains(down, c) {
+				t.Errorf("expected %v but got %v", c, down)
+			}
 		}
 	})
 }
