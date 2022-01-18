@@ -26,6 +26,18 @@ func (mu *Command) RunUp() error {
 	return err
 }
 
+func (mu *Command) Reset(ctx context.Context, conn *pop.Connection) error {
+	pop.SetLogger(mu.Log)
+
+	mig, err := pop.NewMigrationBox(mu.migrations, conn)
+	if err != nil {
+		return err
+	}
+
+	_, err = mig.UpTo(mu.steps)
+	return err
+}
+
 func (mu *Command) RunBeforeTest(ctx context.Context, root string, args []string) error {
 	pop.SetLogger(mu.Log)
 
