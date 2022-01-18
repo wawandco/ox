@@ -27,7 +27,7 @@ type MigrationGenerators []MigrationGenerator
 
 func (a MigrationGenerators) GeneratorFor(name string) MigrationGenerator {
 	// Setting create table migration by default
-	var mg MigrationGenerator = &createTable{}
+	var mg MigrationGenerator = &createDefault{}
 
 	for _, x := range a {
 		if x.match(name) {
