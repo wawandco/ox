@@ -8,10 +8,13 @@ import (
 	"github.com/gobuffalo/pop/v6"
 	"github.com/spf13/pflag"
 	"github.com/wawandco/ox/internal/log"
+	"github.com/wawandco/ox/plugins/core"
 )
 
 type ResetCommand struct {
 	connectionName string
+	// Other plugins that will run when reset is invoked
+	resetters []Resetter
 
 	flags *pflag.FlagSet
 }
@@ -34,17 +37,33 @@ func (d *ResetCommand) Run(ctx context.Context, root string, args []string) erro
 		return ErrConnectionNotFound
 	}
 
-	resetter := conn.Dialect
-	if resetter == nil {
+	dial := conn.Dialect
+	if dial == nil {
 		return errors.New("provided connection is not a Resetter")
 	}
 
-	err := resetter.DropDB()
+	err := dial.DropDB()
 	if err != nil {
 		log.Warnf("could not drop database: %v\n", err)
 	}
+	log.Info("Database dropped")
 
-	return resetter.CreateDB()
+	err = dial.CreateDB()
+	if err != nil {
+		log.Errorf("could not create database: %v\n", err)
+		return err
+	}
+	log.Info("Database created")
+
+	for _, resetter := range d.resetters {
+		err := resetter.Reset(ctx, conn)
+		if err != nil {
+			log.Errorf("could not run resetter: %v\n", err)
+			return err
+		}
+	}
+
+	return nil
 }
 
 // RunBeforeTests will be invoked to reset the test database before
@@ -84,4 +103,20 @@ func (d *ResetCommand) ParseFlags(args []string) {
 
 func (d *ResetCommand) Flags() *pflag.FlagSet {
 	return d.flags
+}
+
+func (d *ResetCommand) Receive(pls []core.Plugin) {
+	for _, plugin := range pls {
+		ptool, ok := plugin.(Resetter)
+		if !ok {
+			continue
+		}
+
+		d.resetters = append(d.resetters, ptool)
+	}
+}
+
+// Resetter is something that should be run on reset.
+type Resetter interface {
+	Reset(context.Context, *pop.Connection) error
 }
