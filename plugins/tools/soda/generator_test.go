@@ -139,7 +139,7 @@ func Test_Generate(t *testing.T) {
 
 	t.Run("generate fizz migration with args", func(t *testing.T) {
 		dir := t.TempDir()
-		args := []string{"generate", "migration", "users", "description:string", "quantity:int"}
+		args := []string{"generate", "migration", "create_table_users", "description:string", "quantity:int"}
 		g.ParseFlags(args)
 
 		if err := g.Generate(context.Background(), dir, args); err != nil {
