@@ -44,9 +44,65 @@ func Test_Generate(t *testing.T) {
 		}
 	})
 
+	t.Run("generate fizz migration with flag in another position", func(t *testing.T) {
+		dir := t.TempDir()
+		args := []string{"generate", "migration", "--type=fizz", "users"}
+
+		g.ParseFlags(args)
+		if err := g.Generate(context.Background(), dir, args); err != nil {
+			t.Errorf("should not be error, but got %v", err)
+		}
+
+		// Validating Files existence
+		match, err := filepath.Glob(filepath.Join(dir, "migrations", "*users.*.fizz"))
+		if err != nil {
+			t.Errorf("searching for files should not error, but got %v", err)
+		}
+
+		if len(match) == 0 {
+			t.Error("migration files does not exists on the path")
+		}
+
+		if !strings.HasSuffix(match[0], "_users.down.fizz") {
+			t.Error("'users.up.fizz' file does not exists on the path")
+		}
+
+		if !strings.HasSuffix(match[1], "_users.up.fizz") {
+			t.Error("'users.down.fizz' file does not exists on the path")
+		}
+	})
+
 	t.Run("generate sql migration", func(t *testing.T) {
 		dir := t.TempDir()
 		args := []string{"generate", "migration", "company", "--type=sql"}
+		g.ParseFlags(args)
+
+		if err := g.Generate(context.Background(), dir, args); err != nil {
+			t.Errorf("should not be error, but got %v", err)
+		}
+
+		// Validating Files existence
+		match, err := filepath.Glob(filepath.Join(dir, "migrations", "*companies.*.sql"))
+		if err != nil {
+			t.Errorf("searching for files should not error, but got %v", err)
+		}
+
+		if len(match) == 0 {
+			t.Error("migration files does not exists on the path")
+		}
+
+		if !strings.HasSuffix(match[0], "_companies.down.sql") {
+			t.Error("'companies.up.sql' file does not exists on the path")
+		}
+
+		if !strings.HasSuffix(match[1], "_companies.up.sql") {
+			t.Error("'companies.down.sql' file does not exists on the path")
+		}
+	})
+
+	t.Run("generate sql migration with flag in another position", func(t *testing.T) {
+		dir := t.TempDir()
+		args := []string{"generate", "migration", "--type=sql", "company"}
 		g.ParseFlags(args)
 
 		if err := g.Generate(context.Background(), dir, args); err != nil {
