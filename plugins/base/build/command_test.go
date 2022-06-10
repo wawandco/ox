@@ -70,7 +70,7 @@ func TestCommand_Run(t *testing.T) {
 	file := `module test`
 	err = ioutil.WriteFile("go.mod", []byte(file), 0444)
 	if err != nil {
-		t.Fatal(err)
+		t.Fatalf("Could not create file: %s", err)
 	}
 
 	t.Run("build error", func(t *testing.T) {
