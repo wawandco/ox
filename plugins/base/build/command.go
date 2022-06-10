@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wawandco/ox/internal/log"
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -55,20 +54,16 @@ func (b *Command) Run(ctx context.Context, root string, args []string) error {
 
 		err = builder.RunBeforeBuild(ctx, root, args)
 		if err != nil {
-			log.Error(err.Error())
-			break
+			return err
 		}
 	}
 
-	if err == nil {
-		for _, builder := range b.builders {
-			fmt.Printf(">>> %v Builder Running \n", builder.Name())
+	for _, builder := range b.builders {
+		fmt.Printf(">>> %v Builder Running \n", builder.Name())
 
-			err = builder.Build(ctx, root, args)
-			if err != nil {
-				log.Errorf("%v\n", err.Error())
-				break
-			}
+		err = builder.Build(ctx, root, args)
+		if err != nil {
+			return err
 		}
 	}
 
