@@ -10,7 +10,7 @@ import (
 
 // printTopLevel prints the top level help text with a table that contains top level
 // commands (names) and descriptions.
-func (h *Command) printTopLevel() {
+func (c *Command) printTopLevel() {
 	fmt.Println("Usage")
 	fmt.Printf("  ox [command]\n\n")
 
@@ -22,7 +22,7 @@ func (h *Command) printTopLevel() {
 	fmt.Print("Available top level Commands:\n\n")
 	fmt.Println("Command\t     Alias")
 
-	for _, plugin := range h.commands {
+	for _, plugin := range c.commands {
 		helpText := ""
 		if ht, ok := plugin.(core.HelpTexter); ok {
 			helpText = ht.HelpText()
