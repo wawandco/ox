@@ -3,8 +3,8 @@ package help
 import (
 	"context"
 	_ "embed"
-	"errors"
 	"fmt"
+	"os"
 
 	"github.com/wawandco/ox/plugins/base/content"
 	"github.com/wawandco/ox/plugins/core"
@@ -13,16 +13,14 @@ import (
 var (
 	// Help is a Command
 	_ core.Command = (*Command)(nil)
-
-	ErrSubCommandNotFound = errors.New("subcommand not found")
 )
 
-// Help command that prints
+// Command model struct.
 type Command struct {
 	commands []core.Command
 }
 
-func (h Command) Name() string {
+func (c Command) Name() string {
 	return "help"
 }
 
@@ -30,36 +28,36 @@ func (c Command) Alias() string {
 	return "h"
 }
 
-func (h Command) ParentName() string {
+func (c Command) ParentName() string {
 	return ""
 }
 
 // HelpText for the Help command
-func (h Command) HelpText() string {
+func (c Command) HelpText() string {
 	return "prints help text for the commands registered"
 }
 
 // Run the help command
-func (h *Command) Run(ctx context.Context, root string, args []string) error {
+func (c *Command) Run(_ context.Context, _ string, args []string) error {
 	fmt.Println(content.Banner)
 
-	command, names := h.findCommand(args)
+	command, names := c.findCommand(args)
 	if command == nil {
-		h.printTopLevel()
+		c.printTopLevel()
 		return nil
 	}
 
-	h.printSingle(command, names)
+	c.printSingle(command, names)
 
 	return nil
 }
 
-func (h *Command) findCommand(args []string) (core.Command, []string) {
+func (c *Command) findCommand(args []string) (core.Command, []string) {
 	if len(args) < 2 {
 		return nil, nil
 	}
 
-	var commands = h.commands
+	var commands = c.commands
 	var command core.Command
 	var argIndex = 1
 	var fndNames []string
@@ -113,11 +111,20 @@ func (h *Command) findCommand(args []string) (core.Command, []string) {
 
 // Receive the plugins and stores the Commands for
 // later usage on the help text.
-func (h *Command) Receive(pl []core.Plugin) {
+func (c *Command) Receive(pl []core.Plugin) {
 	for _, plugin := range pl {
 		ht, ok := plugin.(core.Command)
 		if ok && ht.ParentName() == "" {
-			h.commands = append(h.commands, ht)
+			c.commands = append(c.commands, ht)
 		}
 	}
+}
+
+func (c *Command) FindRoot() string {
+	wd, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+
+	return wd
 }

@@ -15,8 +15,8 @@ import (
 )
 
 // cli is the CLI wrapper for our tool. It is in charge
-// for articulating different commands, finding it and also
-// taking care of the CLI iteraction.
+// of articulating different commands, finding it and also
+// taking care of the CLI interaction.
 type cli struct {
 	Plugins []core.Plugin
 }
@@ -47,7 +47,7 @@ func (c *cli) findCommand(name string) core.Command {
 	return nil
 }
 
-// Runs the CLI or cmd/ox/main.go
+// Wrap Runs the CLI or cmd/ox/main.go
 func (c *cli) Wrap(ctx context.Context, args []string) error {
 	path := filepath.Join("cmd", "ox", "main.go")
 	_, err := os.Stat(path)
@@ -104,8 +104,8 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 	}
 
 	// Commands that require running within the ox directory
-	// may require its root to be determined with the go.mod. However
-	// some other commands may want to determine the root by themself,
+	// may require its root to be determined with the go.mod. However,
+	// some other commands may want to determine the root by themselves,
 	// doing os.Getwd or something similar. The latter ones are RootFinders.
 	root := info.RootFolder()
 	rf, ok := command.(core.RootFinder)
@@ -120,17 +120,17 @@ func (c *cli) Run(ctx context.Context, args []string) error {
 	return command.Run(ctx, root, args[1:])
 }
 
-// Use passed Pugins by appending these to the
+// Use passed Plugins by appending these to the
 // plugins list inside the CLI.
-func (cl *cli) Use(plugins ...core.Plugin) {
-	cl.Plugins = append(cl.Plugins, plugins...)
+func (c *cli) Use(plugins ...core.Plugin) {
+	c.Plugins = append(c.Plugins, plugins...)
 }
 
 // Remove looks in the plugins list and removes plugins that
 // match passed names.
-func (cl *cli) Remove(names ...string) {
-	result := []core.Plugin{}
-	for _, pl := range cl.Plugins {
+func (c *cli) Remove(names ...string) {
+	result := make([]core.Plugin, 0)
+	for _, pl := range c.Plugins {
 		var found bool
 		for _, restricted := range names {
 			if pl.Name() == restricted {
@@ -145,10 +145,10 @@ func (cl *cli) Remove(names ...string) {
 		result = append(result, pl)
 	}
 
-	cl.Plugins = result
+	c.Plugins = result
 }
 
 // Clear the plugin list of the CLI.
-func (cl *cli) Clear() {
-	cl.Plugins = []core.Plugin{}
+func (c *cli) Clear() {
+	c.Plugins = []core.Plugin{}
 }

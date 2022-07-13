@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/pflag"
+
 	"github.com/wawandco/ox/plugins/core"
 )
 
@@ -34,7 +35,7 @@ func (d Command) ParentName() string {
 	return ""
 }
 
-//HelpText returns the help Text of build function
+// HelpText returns the help Text of build function
 func (d Command) HelpText() string {
 	return "Generates a new app with registered plugins"
 }

@@ -11,7 +11,7 @@ import (
 
 // printSingle prints help details for a passed plugin
 // Usage, Subcommands and Flags.
-func (h *Command) printSingle(command core.Command, names []string) {
+func (c *Command) printSingle(command core.Command, names []string) {
 	fmt.Println("Description:")
 	if th, ok := command.(core.HelpTexter); ok {
 		fmt.Printf("  %v\n\n", th.HelpText())
