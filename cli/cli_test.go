@@ -1,6 +1,9 @@
 package cli
 
 import (
+	"context"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/wawandco/ox/plugins/base/build"
@@ -53,4 +56,56 @@ func Test_CliTestingAliaser(t *testing.T) {
 		}
 	}
 
+}
+
+func Test_Cli(t *testing.T) {
+	dir := t.TempDir()
+
+	mainFilePath := filepath.Join(dir, "cmd", "ox")
+	if err := os.MkdirAll(mainFilePath, os.ModePerm); err != nil {
+		t.Errorf("creating %s folder should not be error, but got %v", mainFilePath, err)
+	}
+
+	files := []struct {
+		path    string
+		name    string
+		content string
+	}{
+		{
+			path:    dir,
+			name:    "go.mod",
+			content: "module my/project",
+		},
+		{
+			path:    mainFilePath,
+			name:    "main.go",
+			content: "package main",
+		},
+	}
+
+	for _, f := range files {
+		err := os.Chdir(f.path)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		err = os.WriteFile(f.name, []byte(f.content), 0444)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	c := &cli{}
+
+	t.Run("WrapOk running ox command in project dir with cmd/ox/main.go and go.mod", func(t *testing.T) {
+		err := os.Chdir(dir)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		err = c.Wrap(context.Background(), []string{"ox"})
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
 }

@@ -49,10 +49,16 @@ func (c *cli) findCommand(name string) core.Command {
 
 // Wrap Runs the CLI or cmd/ox/main.go
 func (c *cli) Wrap(ctx context.Context, args []string) error {
-	path := filepath.Join("cmd", "ox", "main.go")
-	_, err := os.Stat(path)
+	if len(args) < 2 {
+		return c.Run(ctx, args)
+	}
 
-	if name := info.ModuleName(); err != nil || name == "" || name == "github.com/wawandco/ox" {
+	mainPath := filepath.Join("cmd", "ox", "main.go")
+	if _, err := os.Stat(mainPath); err != nil {
+		return c.Run(ctx, args)
+	}
+
+	if modName := info.ModuleName(); modName == "" || modName == "github.com/wawandco/ox" {
 		return c.Run(ctx, args)
 	}
 
@@ -62,14 +68,14 @@ func (c *cli) Wrap(ctx context.Context, args []string) error {
 		return c.Run(ctx, args)
 	}
 
-	log.Infof("Using %v \n", path)
+	log.Infof("Using %v \n", mainPath)
 
 	cmd := exec.CommandContext(ctx, "go", "run")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
 
-	args[0] = path
+	args[0] = mainPath
 	cmd.Args = append(cmd.Args, args...)
 
 	return cmd.Run()
