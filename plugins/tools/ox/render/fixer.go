@@ -2,7 +2,6 @@ package render
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -29,7 +28,7 @@ func (rf Fixer) Fix(ctx context.Context, root string, args []string) error {
 			return nil
 		}
 
-		bc, err := ioutil.ReadFile(path)
+		bc, err := os.ReadFile(path)
 		if err != nil {
 
 			return err
@@ -48,7 +47,7 @@ func (rf Fixer) Fix(ctx context.Context, root string, args []string) error {
 		cc = strings.ReplaceAll(string(cc), "base.Assets", "public.FS()")
 		cc = strings.ReplaceAll(string(cc), name+".Templates", "templates.FS()")
 		cc = strings.ReplaceAll(string(cc), name+".Assets", "public.FS()")
-		err = ioutil.WriteFile(path, []byte(cc), 0644)
+		err = os.WriteFile(path, []byte(cc), 0644)
 		if err != nil {
 			return err
 		}

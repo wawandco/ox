@@ -2,7 +2,7 @@ package model
 
 import (
 	"context"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/wawandco/ox/internal/source"
@@ -34,7 +34,7 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 	}
 
 	filename = filepath.Join(options.Folder, "app", "models", "models_test.go")
-	err = ioutil.WriteFile(filename, tmpl, 0777)
+	err = os.WriteFile(filename, tmpl, 0777)
 	if err != nil {
 		return err
 	}

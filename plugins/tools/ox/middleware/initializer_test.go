@@ -3,7 +3,6 @@ package middleware
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -38,7 +37,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatalf("error should be nil, got %v", err)
 		}
 
-		bm, err := ioutil.ReadFile(filepath.Join(root, "myapp", "app", "middleware", "middleware.go"))
+		bm, err := os.ReadFile(filepath.Join(root, "myapp", "app", "middleware", "middleware.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}

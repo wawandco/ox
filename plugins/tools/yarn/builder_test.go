@@ -2,7 +2,6 @@ package yarn
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"testing"
 )
@@ -23,7 +22,7 @@ func TestBuildCmd(t *testing.T) {
 			commandNil:  false,
 			failMessage: "command should not be nil",
 			beforeFn: func() {
-				err := ioutil.WriteFile("yarn.lock", []byte{}, 0600)
+				err := os.WriteFile("yarn.lock", []byte{}, 0600)
 				if err != nil {
 					t.Error(err)
 				}

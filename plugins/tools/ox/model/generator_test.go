@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,7 +44,7 @@ func Test_Generate(t *testing.T) {
 		}
 
 		userFilePath := filepath.Join(modelsPath, "organizational_model.go")
-		data, err := ioutil.ReadFile(userFilePath)
+		data, err := os.ReadFile(userFilePath)
 		if err != nil {
 			t.Error("reading file error")
 		}
@@ -81,7 +80,7 @@ func Test_Generate(t *testing.T) {
 		}
 
 		// Validating existence of the attributes
-		data, err := ioutil.ReadFile(userFilePath)
+		data, err := os.ReadFile(userFilePath)
 		if err != nil {
 			t.Error("reading file error")
 		}

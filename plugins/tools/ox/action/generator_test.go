@@ -2,7 +2,6 @@ package action
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -52,7 +51,7 @@ func Test_ActionGenerator(t *testing.T) {
 			t.Error("'user_test.go' file does not exists on the path")
 		}
 
-		content, err := ioutil.ReadFile(filepath.Join(modelsPath, "user.go"))
+		content, err := os.ReadFile(filepath.Join(modelsPath, "user.go"))
 		if err != nil {
 			t.Fatal(err)
 		}

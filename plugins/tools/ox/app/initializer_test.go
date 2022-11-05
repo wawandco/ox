@@ -3,7 +3,6 @@ package app
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -37,7 +36,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatalf("error should be nil, got %v", err)
 		}
 
-		bm, err := ioutil.ReadFile(filepath.Join(root, "myapp", "app", "app.go"))
+		bm, err := os.ReadFile(filepath.Join(root, "myapp", "app", "app.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}
@@ -50,7 +49,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("should contain func signature")
 		}
 
-		bm, err = ioutil.ReadFile(filepath.Join(root, "myapp", "app", "routes.go"))
+		bm, err = os.ReadFile(filepath.Join(root, "myapp", "app", "routes.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}

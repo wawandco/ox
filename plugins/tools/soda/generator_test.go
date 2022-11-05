@@ -2,7 +2,7 @@ package soda
 
 import (
 	"context"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -221,7 +221,7 @@ func Test_Generate(t *testing.T) {
 		}
 
 		// Validating existence of the attributes
-		dropFile, err := ioutil.ReadFile(match[0])
+		dropFile, err := os.ReadFile(match[0])
 		if err != nil {
 			t.Error("reading migration down file error")
 		}
@@ -230,7 +230,7 @@ func Test_Generate(t *testing.T) {
 			t.Error(`unexpected content, file should contain 'drop_table("users")'`)
 		}
 
-		createFile, err := ioutil.ReadFile(match[1])
+		createFile, err := os.ReadFile(match[1])
 		if err != nil {
 			t.Error("reading migration down file error")
 		}

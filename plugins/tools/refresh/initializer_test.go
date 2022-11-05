@@ -3,7 +3,6 @@ package refresh
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -45,7 +44,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatalf("Did not create file in %v", path)
 		}
 
-		d, err := ioutil.ReadFile(path)
+		d, err := os.ReadFile(path)
 		if err != nil {
 			t.Fatal("could not read the file")
 		}

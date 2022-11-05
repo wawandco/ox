@@ -3,7 +3,6 @@ package standard
 import (
 	"context"
 	"errors"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -78,7 +77,7 @@ func (f Fixer) moveFile(s string) error {
 // Look for go.mod and extract the last part.
 func (f Fixer) findModuleName() (string, error) {
 	mp := "go.mod"
-	file, err := ioutil.ReadFile(mp)
+	file, err := os.ReadFile(mp)
 	if err != nil {
 		return "", err
 	}
@@ -95,7 +94,7 @@ func (f Fixer) findModuleName() (string, error) {
 }
 
 func (f Fixer) fileExists() (bool, error) {
-	files, err := ioutil.ReadDir(".")
+	files, err := os.ReadDir(".")
 	if err != nil {
 		return false, err
 	}

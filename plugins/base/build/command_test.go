@@ -2,7 +2,6 @@ package build
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -68,7 +67,7 @@ func TestCommand_Run(t *testing.T) {
 	})
 
 	file := `module test`
-	err = ioutil.WriteFile("go.mod", []byte(file), 0444)
+	err = os.WriteFile("go.mod", []byte(file), 0444)
 	if err != nil {
 		t.Fatalf("Could not create file: %s", err)
 	}

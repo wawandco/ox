@@ -1,7 +1,6 @@
 package resource
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -32,7 +31,7 @@ func Test_GenerateActions(t *testing.T) {
 
 	// Validating existence of the attributes
 	companyDir := filepath.Join(dir, "app", "actions", "companies.go")
-	data, err := ioutil.ReadFile(companyDir)
+	data, err := os.ReadFile(companyDir)
 	if err != nil {
 		t.Error("reading file error")
 	}
@@ -109,7 +108,7 @@ func Test_GenerateModels(t *testing.T) {
 
 	// Validating existence of the attributes
 	userFilePath := filepath.Join(modelsPath, "user.go")
-	data, err := ioutil.ReadFile(userFilePath)
+	data, err := os.ReadFile(userFilePath)
 	if err != nil {
 		t.Error("reading file error")
 	}

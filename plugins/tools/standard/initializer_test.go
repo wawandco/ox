@@ -3,7 +3,6 @@ package standard_test
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -38,7 +37,7 @@ func TestInitializer(t *testing.T) {
 		t.Fatalf("did not generate go.mod: %s", err)
 	}
 
-	content, err := ioutil.ReadFile("go.mod")
+	content, err := os.ReadFile("go.mod")
 	if err != nil {
 		t.Fatalf("could not read go.mod: %s", err)
 	}

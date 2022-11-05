@@ -1,7 +1,6 @@
 package info
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 )
@@ -16,7 +15,7 @@ func TestBuildName(t *testing.T) {
 		}
 
 		file := `module wawandco/something`
-		err = ioutil.WriteFile("go.mod", []byte(file), 0444)
+		err = os.WriteFile("go.mod", []byte(file), 0444)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -104,7 +103,7 @@ func TestBuildName(t *testing.T) {
 				}
 
 				content := []byte(tcase.content)
-				err = ioutil.WriteFile("go.mod", content, 0600)
+				err = os.WriteFile("go.mod", content, 0600)
 				if err != nil {
 					t.Fatalf("could not create go.mod file: %v", err)
 				}

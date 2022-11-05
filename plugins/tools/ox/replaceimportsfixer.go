@@ -3,7 +3,6 @@ package ox
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -21,7 +20,7 @@ func (ef ReplaceImportsFixer) Fix(ctx context.Context, root string, args []strin
 			return nil
 		}
 
-		cc, err := ioutil.ReadFile(path)
+		cc, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -29,7 +28,7 @@ func (ef ReplaceImportsFixer) Fix(ctx context.Context, root string, args []strin
 		cc = bytes.ReplaceAll(cc, []byte("github.com/gobuffalo/pop/v5"), []byte("github.com/gobuffalo/pop/v6"))
 		cc = bytes.ReplaceAll(cc, []byte("github.com/gobuffalo/suite/v3"), []byte("github.com/gobuffalo/suite/v4"))
 
-		err = ioutil.WriteFile(path, []byte(cc), 0644)
+		err = os.WriteFile(path, []byte(cc), 0644)
 		if err != nil {
 			return err
 		}

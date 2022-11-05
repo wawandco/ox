@@ -3,7 +3,6 @@ package render
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -39,7 +38,7 @@ func TestInitializer(t *testing.T) {
 		}
 
 		path := filepath.Join(root, "myapp", "app", "render", "render.go")
-		bm, err := ioutil.ReadFile(path)
+		bm, err := os.ReadFile(path)
 		if err != nil {
 			t.Fatal("should have created the file")
 		}

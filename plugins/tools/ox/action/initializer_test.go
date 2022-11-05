@@ -3,7 +3,6 @@ package action
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -59,7 +58,7 @@ func TestInitializer(t *testing.T) {
 		}
 
 		for _, tcase := range tcases {
-			bm, err := ioutil.ReadFile(tcase.path)
+			bm, err := os.ReadFile(tcase.path)
 			if err != nil {
 				t.Fatal("should have created the file:", tcase.path)
 			}

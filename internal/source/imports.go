@@ -2,7 +2,6 @@ package source
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -15,7 +14,7 @@ func RunImports(root string) error {
 			return nil
 		}
 
-		src, err := ioutil.ReadFile(path)
+		src, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -29,7 +28,7 @@ func RunImports(root string) error {
 			return nil
 		}
 
-		return ioutil.WriteFile(path, res, 0644)
+		return os.WriteFile(path, res, 0644)
 	})
 
 	return err

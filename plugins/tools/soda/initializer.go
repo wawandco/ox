@@ -2,7 +2,6 @@ package soda
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -23,7 +22,7 @@ func (in Initializer) Initialize(ctx context.Context, options new.Options) error
 
 	readme := filepath.Join(options.Folder, "migrations", "README.md")
 	content := []byte("This is the migrations folder, here live the migrations to keep the database up to date.")
-	err = ioutil.WriteFile(readme, content, 0777)
+	err = os.WriteFile(readme, content, 0777)
 	if err != nil {
 		return err
 	}

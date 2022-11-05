@@ -1,7 +1,6 @@
 package standard
 
 import (
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -24,7 +23,7 @@ func TestComposeBuildArgs(t *testing.T) {
 	}
 
 	file := `module wawandco/app`
-	err = ioutil.WriteFile("go.mod", []byte(file), 0444)
+	err = os.WriteFile("go.mod", []byte(file), 0444)
 	if err != nil {
 		t.Fatal(err)
 	}

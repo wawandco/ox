@@ -3,7 +3,6 @@ package ox
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -36,7 +35,7 @@ func (rf ExpressionsFixer) Fix(ctx context.Context, root string, args []string) 
 			return err
 		}
 
-		cc, err := ioutil.ReadFile(path)
+		cc, err := os.ReadFile(path)
 		if err != nil {
 
 			return err
@@ -48,7 +47,7 @@ func (rf ExpressionsFixer) Fix(ctx context.Context, root string, args []string) 
 
 			cc = bytes.ReplaceAll(cc, []byte(l), []byte(r))
 
-			err = ioutil.WriteFile(path, cc, 0644)
+			err = os.WriteFile(path, cc, 0644)
 			if err != nil {
 				return err
 			}

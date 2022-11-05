@@ -3,7 +3,6 @@ package standard
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -23,7 +22,7 @@ func (ef GoImportsFixer) Fix(ctx context.Context, root string, args []string) er
 			return nil
 		}
 
-		src, err := ioutil.ReadFile(path)
+		src, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -37,7 +36,7 @@ func (ef GoImportsFixer) Fix(ctx context.Context, root string, args []string) er
 			return nil
 		}
 
-		return ioutil.WriteFile(path, res, 0644)
+		return os.WriteFile(path, res, 0644)
 	})
 
 	return err

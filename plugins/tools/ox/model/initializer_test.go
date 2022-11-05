@@ -3,7 +3,6 @@ package model
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -43,7 +42,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("should have created the file")
 		}
 
-		bmodels, err := ioutil.ReadFile(filepath.Join(root, "myapp", "app", "models", "models.go"))
+		bmodels, err := os.ReadFile(filepath.Join(root, "myapp", "app", "models", "models.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}
@@ -52,7 +51,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatal("models should contain pop import")
 		}
 
-		bmodelst, err := ioutil.ReadFile(filepath.Join(root, "myapp", "app", "models", "models_test.go"))
+		bmodelst, err := os.ReadFile(filepath.Join(root, "myapp", "app", "models", "models_test.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}

@@ -3,7 +3,6 @@ package git
 import (
 	"context"
 	"embed"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -37,7 +36,7 @@ func (i *Initializer) Initialize(ctx context.Context, options new.Options) error
 			return err
 		}
 
-		err = ioutil.WriteFile(filepath.Join(options.Folder, k, ".gitkeep"), []byte{}, 0777)
+		err = os.WriteFile(filepath.Join(options.Folder, k, ".gitkeep"), []byte{}, 0777)
 		if err == nil {
 			continue
 		}

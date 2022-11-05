@@ -1,7 +1,6 @@
 package info
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -15,7 +14,7 @@ func Test_RootFolder(t *testing.T) {
 	}
 
 	file := `module wawandco/something`
-	err = ioutil.WriteFile("go.mod", []byte(file), 0444)
+	err = os.WriteFile("go.mod", []byte(file), 0444)
 	if err != nil {
 		t.Fatal(err)
 	}

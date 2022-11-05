@@ -2,7 +2,6 @@ package grift
 
 import (
 	"context"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -45,7 +44,7 @@ func Test_ActionGenerator(t *testing.T) {
 			t.Error("'simple.go' file does not exists on the path")
 		}
 
-		content, err := ioutil.ReadFile(filepath.Join(modelsPath, "simple.go"))
+		content, err := os.ReadFile(filepath.Join(modelsPath, "simple.go"))
 		if err != nil {
 			log.Fatal(err)
 		}

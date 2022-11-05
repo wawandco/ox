@@ -3,7 +3,6 @@ package source
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"text/template"
@@ -59,7 +58,7 @@ func Build(filename, source string, data interface{}) error {
 		return fmt.Errorf("error executing template: %w", err)
 	}
 
-	err = ioutil.WriteFile(filename, sbf.Bytes(), 0777)
+	err = os.WriteFile(filename, sbf.Bytes(), 0777)
 	if err != nil {
 		return fmt.Errorf("error writing file: %w", err)
 	}

@@ -3,7 +3,6 @@ package cmd
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -37,7 +36,7 @@ func TestInitializer(t *testing.T) {
 			t.Fatalf("error should be nil, got %v", err)
 		}
 
-		bmodels, err := ioutil.ReadFile(filepath.Join(root, "myapp", "cmd", "myapp", "main.go"))
+		bmodels, err := os.ReadFile(filepath.Join(root, "myapp", "cmd", "myapp", "main.go"))
 		if err != nil {
 			t.Fatal("should have created the file")
 		}

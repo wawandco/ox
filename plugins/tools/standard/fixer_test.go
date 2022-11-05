@@ -3,7 +3,6 @@ package standard
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -17,13 +16,13 @@ func TestFix(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
 
 		content = []byte("module github.com/some/cool/package")
-		err = ioutil.WriteFile("go.mod", content, 0600)
+		err = os.WriteFile("go.mod", content, 0600)
 		if err != nil {
 			t.Fatalf("could not create go.mod file: %v", err)
 		}
@@ -54,7 +53,7 @@ func TestFix(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
@@ -77,7 +76,7 @@ func TestMoveFile(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
@@ -88,7 +87,7 @@ func TestMoveFile(t *testing.T) {
 			t.Fatal("movefile did not work")
 		}
 
-		dat, err := ioutil.ReadFile(filepath.Join("cmd", "julian", "main.go"))
+		dat, err := os.ReadFile(filepath.Join("cmd", "julian", "main.go"))
 		if err != nil {
 			t.Fatal("movefile did not work (reading file)")
 		}
@@ -105,7 +104,7 @@ func TestMoveFile(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
@@ -137,7 +136,7 @@ func TestMoveFile(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
@@ -169,7 +168,7 @@ func TestFileExists(t *testing.T) {
 		}
 
 		content := []byte("package main // Generated!")
-		err = ioutil.WriteFile("main.go", content, 0600)
+		err = os.WriteFile("main.go", content, 0600)
 		if err != nil {
 			t.Fatal("could not create main file")
 		}
