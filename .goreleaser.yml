@@ -1,6 +1,6 @@
 builds:
   - main: ./cmd/ox/main.go
-    binary: buffalo
+    binary: ox
     env:
       - CGO_ENABLED=0
     goos:
