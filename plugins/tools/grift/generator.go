@@ -52,7 +52,7 @@ func (g Generator) Generate(ctx context.Context, root string, args []string) err
 	g.dir = dirPath
 
 	if g.exists(filepath.Join(g.dir, g.filename+".go")) {
-		return fmt.Errorf("Task file already exists")
+		return fmt.Errorf("task file already exists")
 	}
 
 	if err := g.createTaskFile(args); err != nil {
