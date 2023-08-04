@@ -8,19 +8,22 @@ builds:
       - linux
     goarch:
       - amd64
-      - 386
+      - "386"
       - arm
       - arm64
     goarm:
-      - 6
-      - 7
+      - "6"
+      - "7"
 archives:
-  - name_template: "ox_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
-    replacements:
-      '386': i386
-      darwin: Darwin
-      linux: Linux
-      amd64: x86_64
+  - name_template: >-
+      ox_{{ .Version }}_{{ .Os }}_
+      {{- if eq .Arch "386" }}i386
+      {{- else if eq .Arch "darwin" }}Darwin
+      {{- else if eq .Arch "linux" }}Linux
+      {{- else if eq .Arch "linux" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
+      {{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_
+      {{ .Mips }}{{ end }}
 checksum:
   name_template: checksums.txt
 snapshot:
