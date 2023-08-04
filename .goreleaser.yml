@@ -22,8 +22,8 @@ archives:
       {{- else if eq .Arch "linux" }}Linux
       {{- else if eq .Arch "linux" }}x86_64
       {{- else }}{{ .Arch }}{{ end }}
-      {{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_
-      {{ .Mips }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+      {{- if .Mips }}_{{ .Mips }}{{ end }}
 checksum:
   name_template: checksums.txt
 snapshot:
