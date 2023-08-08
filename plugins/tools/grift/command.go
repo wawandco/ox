@@ -6,7 +6,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/markbates/grift/grift"
+	"github.com/gobuffalo/grift/grift"
 	"github.com/wawandco/ox/plugins/core"
 )
 
