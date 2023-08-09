@@ -8,10 +8,10 @@ require (
 	github.com/gobuffalo/envy v1.10.1
 	github.com/gobuffalo/fizz v1.14.0
 	github.com/gobuffalo/flect v0.2.4
+	github.com/gobuffalo/grift v1.5.2
 	github.com/gobuffalo/httptest v1.5.1
 	github.com/gobuffalo/pop/v6 v6.0.1
 	github.com/gobuffalo/refresh v1.13.3
-	github.com/markbates/grift v1.5.0
 	github.com/markbates/oncer v1.0.0
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/mod v0.4.2
@@ -57,6 +57,7 @@ require (
 	github.com/karrick/godirwalk v1.16.1 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/luna-duclos/instrumentedsql v1.1.3 // indirect
+	github.com/markbates/grift v1.5.0 // indirect
 	github.com/markbates/refresh v1.12.0 // indirect
 	github.com/markbates/safe v1.0.1 // indirect
 	github.com/markbates/sigtx v1.0.0 // indirect
